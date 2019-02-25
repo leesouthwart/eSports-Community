@@ -1,0 +1,86 @@
+/* bg image */
+
+header.masthead {
+  padding-top: 10rem;
+  padding-bottom: 0;
+  background-image: url("../img/bg.jpg");
+  background-position: center center;
+  background-size: cover;
+  height:100vh;
+}
+
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+header.masthead h1 {
+  font-size: 2rem;
+}
+
+header.masthead p {
+  font-weight: 300;
+}
+
+@media (min-width: 768px) {
+  header.masthead p {
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 992px) {
+  header.masthead {
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  header.masthead h1 {
+    font-size: 4rem;
+  }
+}
+
+.black-box {
+    padding: 70px;
+    background-color: rgba(0, 0, 0, 0.90);
+}
+
+
+/* nav */
+
+.bg-dark-opacity {
+    background-color:rgba(0,0,0,0.75);
+}
+
+
+
+/* footer */
+
+
+.icon-size {
+    font-size: 22px;
+    padding: 5px;
+}
+
+footer {
+  background-color:rgba(0,0,0,0.97);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width:100%;
+}
+
+.footer-text {
+  color: #007bff;
+}
+
+.italic {
+  font-style: italic;
+}
+
