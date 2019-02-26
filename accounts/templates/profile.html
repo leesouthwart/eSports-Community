@@ -1,7 +1,74 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
+<section class="edit-profile-section">
+    
+    <div class="row text-center d-sm-none">
+            <div class="col-12">
+                <img class="profile-image" src="{{ user.profile.image.url }}">
+            </div>
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-8 centered-col">
+            <div class="profile-block">
+                <div class="media">
+                    <a href="{% url 'update profile' %}"><img class="profile-image d-none d-sm-block " src="{{ user.profile.image.url }}"></a>
+                    <div class="media-body">
+                        <h2 class="account-heading">{{ user.username }}</h2>
+                        <hr>
+                        <div class="row text-center">
+                            <div class="col-md-4 centered-col">
+                                <p class="italic">Available to Team</p>
+                                {% if user.profile.available_to_team == True %}
+                                <p><i class="far fa-check-circle tick"></i></p>
+                                {% else %}
+                                <p><i class="fas fa-times-circle cross"></i></p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 centered-col">
+                                <p class="italic">Location</p>
+                                {% if user.profile.location == "" %}
+                                <a href="{% url 'update profile' %}">
+                                    <p>Click here to edit profile</p>
+                                </a>
+                                {% else %}
+                                <p>{{user.profile.location}}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 centered-col">
+                                <p class="italic">Join Date</p>
+                                <p>{{ user.date_joined|date:"d / m / Y " }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row text-center">
+                            <div class="col-12">
+                                <h4 class="italic">Bio</h4>
+                                {% if user.profile.user_bio == "" %}
+                                <a href="{% url 'update profile' %}">
+                                    <p>Click here to edit profile</p>
+                                </a>
+                                {% else %}
+                                <p>{{user.profile.user_bio}}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- edit profile button -->
+            <div class="row">
+                <div class="col-2 align-self-end">
+                    <a class="btn btn-primary btn-xl" href="{% url 'update profile' %}">Edit profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<h1>{{ user }}'s Profile</h1>
-<img src="{{user.profile.image.url}}">
-<p>{{user.profile.user_bio}}</p>
+
+
+
+
 {% endblock %}

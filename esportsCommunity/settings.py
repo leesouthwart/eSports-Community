@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import env
 from django.conf.urls.static import static
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'accounts',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
 MEDIA_URL = '/media/'
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

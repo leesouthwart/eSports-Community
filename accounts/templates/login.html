@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load crispy_forms_tags %}
 
-
-<h1>login page</h1>
-<hr>
-<form method="POST">
-    {% csrf_token %}
-    
-    {{ login_form }}
-    <button type="submit">Login</button>
-</form>
-
+<section class="edit-profile-section">
+    <container>
+        <div class="row text-center">
+            <div class="col-12">
+                
+                <h4 class="user-header">Login</h4>
+            </div>
+        </div>
+        <div>
+            <div class="row update-form-length text-center profile-block">
+                <div class="media-body">
+                    <div class="col-12">
+                        <form class="form-width" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %} 
+                            {{ login_form|crispy }} 
+                            
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </container>
+</section>
 
 {% endblock %}

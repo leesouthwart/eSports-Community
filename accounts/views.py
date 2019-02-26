@@ -3,8 +3,9 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from home.views import index
-from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from accounts.models import Profile
+
 ## ACCOUNT.VIEWS
 
 @login_required
@@ -67,10 +68,39 @@ def register(request):
         
     return render(request, 'register.html', {"registration_form": registration_form})
 
+@login_required
 def user_profile(request):
     """
     The Users profile page
     """
     user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {'user': user})
     
+    return render(request, 'profile.html', {'user': user})
+
+@login_required
+def update_user_profile(request):
+    
+    user = User.objects.get(email=request.user.email)
+    #forms to update user profile
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request,'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user': user
+    }
+        
+    return render(request, 'update_profile.html', context)

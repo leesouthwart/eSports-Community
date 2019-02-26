@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 /* bg image */
 
 header.masthead {
@@ -6,7 +10,7 @@ header.masthead {
   background-image: url("../img/bg.jpg");
   background-position: center center;
   background-size: cover;
-  height:100vh;
+  height: 100vh;
 }
 
 header.masthead hr {
@@ -47,33 +51,32 @@ header.masthead p {
 }
 
 .black-box {
-    padding: 70px;
-    background-color: rgba(0, 0, 0, 0.90);
+  padding: 70px;
+  background-color: rgba(0, 0, 0, 0.90);
 }
 
 
 /* nav */
 
 .bg-dark-opacity {
-    background-color:rgba(0,0,0,0.75);
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
 
 
 /* footer */
 
-
 .icon-size {
-    font-size: 22px;
-    padding: 5px;
+  font-size: 22px;
+  padding: 5px;
 }
 
 footer {
-  background-color:rgba(0,0,0,0.97);
+  background-color: rgba(0, 0, 0, 0.97);
   position: fixed;
   left: 0;
   bottom: 0;
-  width:100%;
+  width: 100%;
 }
 
 .footer-text {
@@ -84,3 +87,66 @@ footer {
   font-style: italic;
 }
 
+/* profile page */
+
+
+.profile-image{
+  display:inline-block;
+  vertical-align:middle;
+  border: 5px solid #15202b;
+  background: #15202b;
+  border-radius: 50%;
+  height: 175px;
+  width:175px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+  object-fit: cover;
+  
+}
+
+
+.profile-block {
+  background: #f3f3f3;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  
+}
+
+.centered-col {
+  margin:auto;
+}
+
+.tick {
+  font-size: 24px;
+  color: green;
+}
+
+.cross {
+  font-size: 24px;
+  color: red;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.update-form-length {
+  width:75%;
+  margin:auto;
+}
+.user-header {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.form-width {
+  width:75%;
+  margin:auto;
+}
+
+.edit-profile-section {
+  margin-top:100px;
+  margin-bottom: 200px;
+}

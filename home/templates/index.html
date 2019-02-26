@@ -1,7 +1,7 @@
-{% extends 'base.html' %} {% load static from staticfiles %} {% block content %}
+{% extends 'base.html' %} {% load static from staticfiles %} 
 
 
-
+{% block content %}
 
 <header class="masthead text-center text-white d-flex">
     <div class="container my-auto">
@@ -18,9 +18,35 @@
 
 
             <div class="col-lg-8 mx-auto">
+                {% if user.is_authenticated %}
+                <!--  if authenticated carosel here -->
+                <div class="carosel">
+                    <!-- issue tracker item for carosel -->
+                    <div>
+                        <h5>Issue Tracker</h5>
+                        <p>Know of a bug, or have a content suggestion?</p>
+                        <p>We want to hear from you!</p>
+                        <a class="btn btn-primary btn-xl" href="#">Issue Tracker!</a>
+                    </div>
+                    <!-- Events item for carosel -->
+                    <div>
+                        <h5>Events</h5>
+                        <p>Check out the biggest upcoming events in the eSports community</p>
+                        <a class="btn btn-primary btn-xl" href="#">Events!</a>
+                    </div>
+                
+                    <!-- News item for carosel -->
+                    <div>
+                        <h5>News</h5>
+                        <p>Keep up to date with the latest news in the eSports world</p>
+                        <a class="btn btn-primary btn-xl" href="#">News!</a>
+                    </div>
+                </div>
+                {% else %}
                 <p class="mb-5">Sign up to keep up to date with the hot topics in the esports world.</p>
                 <a class="btn btn-primary btn-xl" href="{% url 'register' %}">Sign Up!</a>
                 <a class="btn btn-primary btn-xl" href="{% url 'login' %}">Login!</a>
+                {% endif %}
             </div>
         </div>
     </div>
