@@ -15,19 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from home.views import index
 from accounts.views import logout, login, register, user_profile, update_user_profile
 from django.conf import settings
 from django.conf.urls.static import static
-
+from accounts import url_reset as reset_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
+    url(r'^password-reset/', include(reset_urls)),
     url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/register/$', register, name='register'),
     url(r'^accounts/profile/$', user_profile, name='profile'),
-    url(r'^accounts/profile/update$', update_user_profile, name="update profile"),
+    url(r'^accounts/profile/update/$', update_user_profile, name="update profile"),
+    
+    
+    
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -150,3 +150,19 @@ footer {
   margin-top:100px;
   margin-bottom: 200px;
 }
+
+.btn-dark-blue {
+  background-color:#1e3a9a;
+  border-color:#1e3a9a;
+  color:white;
+  
+}
+
+.btn-dark-blue:hover {
+  color:white;
+  background-color:#455fb7;
+}
+
+.reset-link {
+  margin-top:10px;
+}

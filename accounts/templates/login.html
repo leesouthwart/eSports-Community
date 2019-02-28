@@ -4,22 +4,19 @@
 
 <section class="edit-profile-section">
     <container>
-        <div class="row text-center">
-            <div class="col-12">
-                
-                <h4 class="user-header">Login</h4>
-            </div>
-        </div>
         <div>
             <div class="row update-form-length text-center profile-block">
                 <div class="media-body">
                     <div class="col-12">
+                        <h4 class="user-header">Login</h4>
+                        <hr>
                         <form class="form-width" method="POST" enctype="multipart/form-data">
                             {% csrf_token %} 
                             {{ login_form|crispy }} 
                             
-                            <button type="submit">Login</button>
+                            <button type="submit" class="btn btn-primary btn-xl">Login</button>
                         </form>
+                        <p class="reset-link"><a href="{% url 'password_reset' %}">Reset Password</a></p>
                     </div>
                 </div>
             </div>
