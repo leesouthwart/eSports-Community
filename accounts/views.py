@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from home.views import index
 from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
-from accounts.models import Profile
+from accounts.models import Profile, Post
 
 ## ACCOUNT.VIEWS
 
@@ -74,8 +74,10 @@ def user_profile(request):
     The Users profile page
     """
     user = User.objects.get(email=request.user.email)
+    posts = Post.objects.filter(author=user).order_by('-date_posted')
     
-    return render(request, 'profile.html', {'user': user})
+    
+    return render(request, 'profile.html', {'user': user, 'posts': posts})
 
 @login_required
 def update_user_profile(request):

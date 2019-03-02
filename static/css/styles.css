@@ -90,20 +90,29 @@ footer {
 /* profile page */
 
 
-.profile-image{
+.profile-image,
+.post-profile-image{
   display:inline-block;
   vertical-align:middle;
-  border: 5px solid #15202b;
+  
   background: #15202b;
   border-radius: 50%;
-  height: 175px;
-  width:175px;
   margin-right: 20px;
   margin-bottom: 16px;
   object-fit: cover;
   
 }
+.profile-image {
+  height: 175px;
+  width:175px;
+  border: 5px solid #15202b;
+}
 
+.post-profile-image {
+  height:100px;
+  width:100px;
+  border: 2px solid #15202b;
+}
 
 .profile-block {
   background: #f3f3f3;
@@ -165,4 +174,18 @@ footer {
 
 .reset-link {
   margin-top:10px;
+}
+
+.post-date {
+  font-size: 50%;
+  color:rgba(33, 37, 41, 0.75);
+}
+
+.post-margin {
+  margin-top: 25px;
+}
+
+.post-image {
+  max-width: 100%;
+  max-height: 100%;
 }

@@ -63,9 +63,36 @@
                     <a class="btn btn-primary btn-xl" href="{% url 'update profile' %}">Edit profile</a>
                 </div>
             </div>
+           
+           
+           {% for post in posts %}
+           <div class="profile-block post-margin">
+                <div class="media">
+                    <img class="post-profile-image d-none d-sm-block " src="{{ post.author.profile.image.url }}">
+                    <div class="media-body">
+                        <h2 class="account-heading">{{ post.author }} <small class="post-date">: {{ post.date_posted|date:"d M " }}</small></h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <p>{{post.post_content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if post.image %}
+                <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <img class="post-image" src="{{ post.image.url }}">
+                            </div>
+                        </div>
+                    {% endif %}
+            </div>  
+            {% endfor %}
         </div>
     </div>
 </section>
+
 
 
 
