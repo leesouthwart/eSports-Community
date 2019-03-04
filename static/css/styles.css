@@ -155,7 +155,7 @@ footer {
   margin:auto;
 }
 
-.edit-profile-section {
+.profile-section {
   margin-top:100px;
   margin-bottom: 200px;
 }
@@ -188,4 +188,19 @@ footer {
 .post-image {
   max-width: 100%;
   max-height: 100%;
+}
+
+.post-link-style:hover {
+  text-decoration: none;
+  
+  color:black;
+}
+
+.post-link-style:hover > div {
+  background-color:#d0cdcd;
+}
+
+.post-link-style {
+  color:black;
+  
 }

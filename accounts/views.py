@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.utils import timezone
 from home.views import index
-from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from accounts.forms import (UserLoginForm, UserRegistrationForm, 
+                            UserUpdateForm, ProfileUpdateForm, PostForm)
 from accounts.models import Profile, Post
 
 ## ACCOUNT.VIEWS
@@ -106,3 +108,38 @@ def update_user_profile(request):
     }
         
     return render(request, 'update_profile.html', context)
+
+# Individual posts view based on the post id
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.views += 1
+    post.save()
+    return render(request, 'postdetail.html', {'post': post})
+    
+
+
+# View for creating or editing a view. Depends on if the PK is None or not.  
+def create_or_edit_post(request, pk=None):
+    """
+    Create a view that allows us to create or edit a post depending if
+    the Post Id is null or not
+    """
+    
+    post = get_object_or_404(Post, pk=pk) if pk else None
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.date_posted = timezone.now()
+            post.save()
+            return redirect(post_detail, post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'new_blogpost.html', {'PostForm': form, 'post': post})  
+
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    Post.objects.filter(id=pk).delete()
+    return redirect('profile')
+

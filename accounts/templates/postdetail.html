@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block content %}
+<section class="profile-section">
+    <div class="row">
+        <div class="col-8 centered-col">
+            <div class="profile-block post-margin">
+                <div class="media">
+                    <img class="post-profile-image d-none d-sm-block " src="{{ post.author.profile.image.url }}">
+                    <div class="media-body">
+                        <h2 class="account-heading">{{ post.author }} <small class="post-date">: {{ post.date_posted|date:"d M " }}</small></h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>{{post.title}}</h3>
+                                <p>{{post.post_content|linebreaks}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr> {% if post.image %}
+
+                <div class="row">
+                    <div class="col-12">
+                        <img class="post-image" src="{{ post.image.url }}">
+                    </div>
+                </div>
+                <hr> {% endif %}
+                <div class="row">
+                    <div class="col-4">
+                        <p>Views: <small>{{ post.views }}</small></p>
+                    </div>
+                    <div class="col-4 text-center">
+                        <a class="btn btn-primary btn-xl" href="{% url 'profile' %}">Back to profile</a>
+                    </div>
+                    <div class="col-4 text-right">
+                        <a class="btn btn-dark-blue btn-xl" href="{% url 'edit_post' post.id %}">Edit post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 text-center">
+            <a class="btn btn-danger btn-xl" href="{% url 'delete_post' post.id %}">Delete post</a>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

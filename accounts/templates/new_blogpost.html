@@ -13,10 +13,10 @@
                     <div class="col-12">
                         <form class="form-width" method="POST" enctype="multipart/form-data">
                             {% csrf_token %} 
-                            {{ user_form|crispy }} 
-                            {{ profile_form|crispy }}
+                            {{ PostForm|crispy }} 
+                            
                             <a class="btn btn-primary btn-xl" href="{% url 'profile' %}">Cancel</a>
-                            <button class="btn btn-success btn-xl" type="submit">Update</button>
+                            <button class="btn btn-success btn-xl" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
