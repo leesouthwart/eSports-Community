@@ -23,13 +23,12 @@ from accounts.views import (logout, login, register, user_profile,
 from django.conf import settings
 from django.conf.urls.static import static
 from accounts import url_reset as reset_urls
-from issue_tracker import url_issues as issue_urls
+from 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
     url(r'^password-reset/', include(reset_urls)),
-    url(r'issue-tracker/', include(issue_urls)),
     url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/register/$', register, name='register'),

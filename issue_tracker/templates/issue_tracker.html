@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% block content %}
+<section class="edit-profile-section">
+    <container>
+        <div>
+            <div class="row update-form-length text-center profile-block">
+
+                <div class="media-body">
+                    <div class="col-12">
+
+                        <h2>Issue Tracker</h2>
+                        <hr>
+                        <p>Feel free to submit any content suggestions and bug reports below, and upvote suggestions you enjoy.</p>
+                        <p class="italic">Be aware that upvoting content suggestions costs £1. We promise to spend a large portion of<br> the eSports Communities development teams time working on the top voted content suggestion. Submitting and upvoting bug fixes is free.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row update-form-length text-center profile-block">
+
+                <div class="media-body">
+                    <div class="col-12">
+                        <div id="tabs">
+                            <!-- UL for tab navigation -->
+
+                            <ul class="nav nav-tabs nav-justified">
+                                <li rel="tab-1" class="nav-item">
+                                    <a class="nav-link active" href="#">Content Suggestions</a>
+                                </li>
+                                <li rel="tab-2" class="nav-item">
+                                    <a class="nav-link" href="#">Bug Fixes</a>
+                                </li>
+                            </ul>
+
+                            <!-- CONTENT SUGGESTION TABS -->
+
+                            <div id="tab-1" class="active-panel">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                            </div>
+
+                            <!-- BUG FIXES TAB -->
+
+                            <div id="tab-2" class="panel">
+                                
+                                <!-- individual bug previews -->
+                                {% for bug in bugs %}
+                                <div class="row">
+                                    <div class="col-3">
+                                        <p><i class="far fa-thumbs-up"></i><b>{{ bug.upvotes }}</b></p>
+                                        {% if bug.status == 'Backlog' %}
+                                        <p class="status-backlog-text"><b>Status: </b>{{ bug.status }}</p>
+                                        {% endif %}
+                                        {% if bug.status == 'In Progress' %}
+                                        <p class="status-progress-text"><b>Status: </b>{{ bug.status }}</p>
+                                        {% endif %}
+                                        {% if bug.status == 'Completed' %}
+                                        <p class="status-completed-text"><b>Status: </b>{{ bug.status }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-9 blue">
+                                        <div class="row">
+                                            <div class="col-12 yellow">
+                                                Lorem ipsum dolor sit amet.
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-12 grey">
+                                                Lorem ipsum dolor sit amet.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </container>
+</section>
+
+{% endblock %}
