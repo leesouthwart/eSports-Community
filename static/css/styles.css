@@ -297,3 +297,28 @@ footer {
 .new-issue-button {
   margin-bottom:-20px;
 }
+
+.vote-icon {
+  
+  font-size:24px;
+}
+
+.upvote-icon-link,
+.downvote-icon-link {
+  color:black;
+  margin-right: 15px;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.upvote-icon-link:hover {
+  color:green;
+}
+
+.downvote-icon-link:hover {
+  color:red;
+}
+
+.upvotes-text {
+  margin-bottom:20px;
+}

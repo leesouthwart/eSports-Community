@@ -5,8 +5,14 @@
     <container>
         <div class="row text-center">
             <div class="col-12">
+                
+                {% if bug.author %}
                 <img class="profile-image" src="{{ bug.author.profile.image.url }}">
                 <h4 class="user-header">{{bug.author}}</h4>
+                {% else %}
+                <img class="profile-image" src="{{ user.profile.image.url }}">
+                <h4 class="user-header">{{user.username}}</h4>
+                {% endif %}
             </div>
         </div>
         <div>

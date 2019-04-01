@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.core.urlresolvers import reverse_lazy
-from .views import issue_tracker_bugs, single_bug, delete_bug, create_or_edit_bug
+from .views import (issue_tracker_bugs, single_bug, delete_bug, create_or_edit_bug,
+                    upvote_bug, downvote_bug)
 #issue_tracker_content
 
 urlpatterns = [
@@ -10,6 +11,7 @@ urlpatterns = [
     url(r'^bugs/(?P<pk>\d+)/delete/$', delete_bug, name="delete_bug"),
     url(r'^bugs/(?P<pk>\d+)/edit/$', create_or_edit_bug, name="edit_bug"),
     url(r'^bugs/new/$', create_or_edit_bug, name="new_bug"),
-    
+    url(r'^bugs/(?P<pk>\d+)/upvote/', upvote_bug, name="upvote_bug"),
+    url(r'^bugs/(?P<pk>\d+)/downvote/', downvote_bug, name="downvote_bug"),
     
     ]

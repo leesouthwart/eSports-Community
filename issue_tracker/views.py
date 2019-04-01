@@ -64,3 +64,18 @@ def create_or_edit_bug(request, pk=None): #pk defaulted to None
         form = BugForm(instance=bug)
         
     return render(request, 'new_bug.html', {'BugForm': form, 'bug': bug})
+    
+def upvote_bug(request, pk):
+    
+    bug = get_object_or_404(Bug, pk=pk)
+    bug.upvotes += 1
+    bug.save()
+    return redirect(single_bug, bug.pk)
+    
+def downvote_bug(request, pk):
+    
+    bug  = get_object_or_404(Bug, pk=pk)
+    bug.upvotes -= 1
+    bug.save()
+    return redirect(single_bug, bug.pk)
+    
