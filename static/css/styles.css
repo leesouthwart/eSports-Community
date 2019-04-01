@@ -144,7 +144,7 @@ footer {
 .update-form-length {
   width:75%;
   margin:auto;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .edit-profile-block {
@@ -248,20 +248,52 @@ footer {
   background-color:#00ff40;
 }
 
-.fa-thumbs-up {
+.fa-thumbs-up,
+.fa-eye{
   margin-right:10px;
   margin-top: 16px;
   font-size: 24px;
 }
 
-.blue {
-  background-color:blue;
+
+.issue-title {
+  padding:12px;
+  padding-left:0;
+  margin-bottom:0;
+  
 }
 
-.yellow {
-  background-color: yellow;
+.issue-title a {
+  color:black;
+}
+.issue-title a:hover {
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
 }
 
-grey {
-  background-color:yellow;
+.issue-subtext {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.current {
+  margin-left:5px;
+  margin-right:5px;
+}
+
+/* change default hover colours for bs4 buttons */
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:not(:disabled):not(.disabled):active{
+  background-color:#cae4ff;
+  color: #007bff;
+}
+
+/* remove box shadow from bs4 buttons */
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:focus{
+  box-shadow: none;
+}
+
+.new-issue-button {
+  margin-bottom:-20px;
 }

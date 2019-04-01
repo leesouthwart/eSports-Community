@@ -16,14 +16,15 @@
                         </div>
                     </div>
                 </div>
-                <hr> {% if post.image %}
-
+                <hr> 
+                {% if post.image %}
                 <div class="row">
                     <div class="col-12">
                         <img class="post-image" src="{{ post.image.url }}">
                     </div>
                 </div>
-                <hr> {% endif %}
+                <hr> 
+                {% endif %}
                 <div class="row">
                     <div class="col-4">
                         <p>Views: <small>{{ post.views }}</small></p>

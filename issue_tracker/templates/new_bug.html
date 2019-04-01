@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+<section class="profile-section">
+    <container>
+        <div class="row text-center">
+            <div class="col-12">
+                <img class="profile-image" src="{{ bug.author.profile.image.url }}">
+                <h4 class="user-header">{{bug.author}}</h4>
+            </div>
+        </div>
+        <div>
+            <div class="row edit-profile-block text-center profile-block">
+                <div class="media-body">
+                    <div class="col-12">
+                        <form class="form-width" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %} 
+                            {{ BugForm.errors }}
+                            {{ BugForm.title|as_crispy_field }}
+                            {{ BugForm.bug_content|as_crispy_field }}
+                            <!-- only allowing admins to edit the status of a bug from backlog
+                            to In Progress, Completed or vice versa -->
+                            {% if user.is_superuser %}
+                                {{ BugForm.status|as_crispy_field }}
+                            {% endif %}
+                            
+                            
+                            
+                            
+                            <a class="btn btn-primary btn-xl" href="{% url 'issue_tracker_bugs' %}">Cancel</a>
+                            <button class="btn btn-success btn-xl" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </container>
+</section>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %} 
+{% load static from staticfiles %} 
+{% block content %}
+<section class="profile-section">
+    <container>
+        <div>
+            <div class="row update-form-length text-center profile-block">
+
+                <div class="media-body">
+                    <div class="col-12">
+
+                        <h2>Issue Tracker</h2>
+                        <hr>
+                        <p>Feel free to submit any content suggestions and bug reports below, and upvote suggestions you enjoy.</p>
+                        <p class="italic">Be aware that upvoting content suggestions costs £1. We promise to spend a large portion of<br> the eSports Communities development teams time working on the top voted content suggestion. Submitting and upvoting bug fixes is free.</p>
+                    </div>
+                </div>
+            </div>
+            
+            {% if user.is_authenticated %}
+            <div class="row update-form-length">
+                <div class="col-12 text-right">
+                    <a class="btn new-issue-button btn-dark-blue btn-xl" href="{% url 'new_bug' %}">Submit New Bug</a>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="row update-form-length text-center profile-block">
+
+                <div class="media-body">
+                    <div class="col-12">
+                        <div id="tabs">
+                            <!-- UL for tab navigation -->
+
+                            <ul class="nav nav-tabs nav-justified">
+                                <li rel="tab-1" class="nav-item">
+                                    <a class="nav-link" href="#">Content Suggestions</a>
+                                </li>
+                                <li rel="tab-2" class="nav-item">
+                                    <a class="nav-link active" href="#">Bug Fixes</a>
+                                </li>
+                            </ul>
+
+                            <!-- BUG FIXES TAB -->
+
+                            <div id="tab-2">
+                                <!-- individual bug previews -->
+                                {% for bug in bugs %}
+                                <div class="row">
+                                    <div class="col-3">
+                                        <p><i class="far fa-thumbs-up"></i><b>{{ bug.upvotes }}</b></p>
+                                        <p><i class="far fa-eye"></i>{{ bug.views }}</p>
+                                        {% if bug.get_status_display == 'Backlog' %}
+                                        <p class="status-backlog-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        
+                                        {% elif bug.get_status_display == 'In Progress' %}
+                                        <p class="status-progress-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        
+                                        {% elif bug.get_status_display == 'Completed' %}
+                                        <p class="status-completed-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-12 text-left">
+                                                <h4 class="issue-title"><a href="{% url 'single_bug' bug.id %}">{{ bug.title }}</a></h4>
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 text-left">
+                                                <p class="issue-subtext">Created <span class="italic">{{bug.date_posted|date:"d M Y "}}</span> by <span class="italic">{{bug.author}}</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr> {% endfor %}
+                            </div>
+                            <div class="pagination">
+                                <span class="step-links">
+                                {% if bugs.has_previous %}
+                                    <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
+                                    <a class="btn btn-outline-primary" href="?page={{ bugs.previous_page_number }}">previous</a>
+                                    {% endif %}
+
+                                    <span class="current italic">
+                                        Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}
+                                    </span>
+                                    {% if bugs.has_next %}
+                                    <a class="btn btn-outline-primary" href="?page={{ bugs.next_page_number }}">next</a>
+                                    <a class="btn btn-outline-primary" href="?page={{ bugs.paginator.num_pages }}">last &raquo;</a> 
+                                {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </container>
+</section>
+
+
+
+{% endblock %}
