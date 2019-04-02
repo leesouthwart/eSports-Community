@@ -20,7 +20,7 @@
             {% if user.is_authenticated %}
             <div class="row update-form-length">
                 <div class="col-12 text-right">
-                    <a class="btn new-issue-button btn-dark-blue btn-xl" href="{% url 'new_bug' %}">Submit New Bug</a>
+                    <a class="btn new-issue-button btn-dark-blue btn-xl" href="{% url 'new_content' %}">Submit New Content Suggestion</a>
                 </div>
             </div>
             {% endif %}
@@ -34,10 +34,10 @@
 
                             <ul class="nav nav-tabs nav-justified">
                                 <li rel="tab-1" class="nav-item">
-                                    <a class="nav-link" href="{% url 'issue_tracker_content' %}">Content Suggestions</a>
+                                    <a class="nav-link active" href="{% url 'issue_tracker_content' %}">Content Suggestions</a>
                                 </li>
                                 <li rel="tab-2" class="nav-item">
-                                    <a class="nav-link active" href="{% url 'issue_tracker_bugs' %}">Bug Fixes</a>
+                                    <a class="nav-link" href="{% url 'issue_tracker_bugs' %}">Bug Fixes</a>
                                 </li>
                             </ul>
 
@@ -45,32 +45,32 @@
 
                             <div id="tab-2">
                                 <!-- individual bug previews -->
-                                {% for bug in bugs %}
+                                {% for s in contents %}
                                 <div class="row">
                                     <div class="col-3">
-                                        <p><i class="far fa-thumbs-up"></i><b>{{ bug.upvotes }}</b></p>
-                                        <p><i class="far fa-eye"></i>{{ bug.views }}</p>
-                                        {% if bug.get_status_display == 'Backlog' %}
-                                        <p class="status-backlog-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        <p><i class="far fa-thumbs-up"></i><b>{{ s.upvotes }}</b></p>
+                                        <p><i class="far fa-eye"></i>{{ s.views }}</p>
+                                        {% if s.get_status_display == 'Backlog' %}
+                                        <p class="status-backlog-text"><b>Status: </b>{{ s.get_status_display }}</p>
                                         
-                                        {% elif bug.get_status_display == 'In Progress' %}
-                                        <p class="status-progress-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        {% elif s.get_status_display == 'In Progress' %}
+                                        <p class="status-progress-text"><b>Status: </b>{{ s.get_status_display }}</p>
                                         
-                                        {% elif bug.get_status_display == 'Completed' %}
-                                        <p class="status-completed-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        {% elif s.get_status_display == 'Completed' %}
+                                        <p class="status-completed-text"><b>Status: </b>{{ s.get_status_display }}</p>
                                         {% endif %}
                                     </div>
                                     <div class="col-9">
                                         <div class="row">
                                             <div class="col-12 text-left">
-                                                <h4 class="issue-title"><a href="{% url 'single_bug' bug.id %}">{{ bug.title }}</a></h4>
+                                                <h4 class="issue-title"><a href="{% url 'single_content' s.id %}">{{ s.title }}</a></h4>
                                                 <hr>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 text-left">
-                                                <p class="issue-subtext">Created <span class="italic">{{bug.date_posted|date:"d M Y "}}</span> by <span class="italic">{{bug.author}}</span></p>
+                                                <p class="issue-subtext">Created <span class="italic">{{s.date_posted|date:"d M Y "}}</span> by <span class="italic">{{s.author}}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -79,17 +79,17 @@
                             </div>
                             <div class="pagination">
                                 <span class="step-links">
-                                {% if bugs.has_previous %}
+                                {% if contents.has_previous %}
                                     <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
-                                    <a class="btn btn-outline-primary" href="?page={{ bugs.previous_page_number }}">previous</a>
+                                    <a class="btn btn-outline-primary" href="?page={{ contents.previous_page_number }}">previous</a>
                                     {% endif %}
 
                                     <span class="current italic">
-                                        Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}
+                                        Page {{ contents.number }} of {{ contents.paginator.num_pages }}
                                     </span>
-                                    {% if bugs.has_next %}
-                                    <a class="btn btn-outline-primary" href="?page={{ bugs.next_page_number }}">next</a>
-                                    <a class="btn btn-outline-primary" href="?page={{ bugs.paginator.num_pages }}">last &raquo;</a> 
+                                    {% if contents.has_next %}
+                                    <a class="btn btn-outline-primary" href="?page={{ contents.next_page_number }}">next</a>
+                                    <a class="btn btn-outline-primary" href="?page={{ contents.paginator.num_pages }}">last &raquo;</a> 
                                 {% endif %}
                                 </span>
                             </div>
@@ -100,7 +100,4 @@
         </div>
     </container>
 </section>
-
-
-
 {% endblock %}
