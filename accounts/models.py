@@ -15,6 +15,8 @@ class Profile(models.Model):
     available_to_team = models.BooleanField(default=True)
     image = models.ImageField(default='standard.jpg', upload_to='profile_pics', blank=True)
     
+   
+    
 #when User is created, make profile for said user
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):

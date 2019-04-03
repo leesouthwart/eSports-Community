@@ -2,7 +2,7 @@
 <section class="profile-section">
     <div class="row">
         
-        </div>
+        
         <div class="col-8 centered-col">
             <div class="profile-block post-margin">
                 <div class="media">
@@ -11,7 +11,7 @@
                         
                         <form class="text-left" method="POST">
                         {% csrf_token %}
-                            <a class="" href="{% url 'upvote_content' content.pk %}"><i class="upvote-icon-link fas fa-chevron-circle-up vote-icon"></i></i></a>
+                            <a class="" href="{% url 'add_to_cart' content.pk %}"><i class="upvote-icon-link fas fa-chevron-circle-up vote-icon"></i></i></a>
                             
                             <a href="{% url 'downvote_content' content.pk %}"><i class="downvote-icon-link fas fa-chevron-circle-down vote-icon"></i></i></a>
                             <p class="upvotes-text">Upvotes: <b>{{ content.upvotes }}</b></p>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<Section class="profile-section">
+    <div class="row">
+        <div class="col-8 centered-col">
+            <h3>Cart Contents</h3>
+            <hr>
+            {% if not cart_items %}
+            <div class="row">
+                <div class="col-10">
+                    <h5 class="italic no-items">No items in cart.</h5>
+                    <hr>
+                </div>
+            </div>
+            {% endif %}
+            {% for item in cart_items %}
+            <div class="row">
+                <div class="col-10">
+                    <p>{{item.quantity}}x Vote for Content Suggestion: {{item.content.id}}.</p>
+                    <small>{{ item.content.title }}</small>
+                    <hr>
+                </div>
+                <div class="col-2 text-center">
+                    <div class="row">
+                        <p>£{{item.content.price}}</p>
+                    </div>
+                    <div class="row">
+                        <a class="btn btn-danger btn-sm delete-btn" href="{% url 'adjust_cart' item.content.id %}">delete</a>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div class="row">
+                <div class="col-12">
+                    <small><b>Total Price: £{{total}}</small></b>
+                    <p>{{quantity}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</Section>
+
+
+
+
+
+{% endblock %}
+
