@@ -47,3 +47,17 @@ class Content(models.Model):
     
     def __str__(self):
         return self.title
+        
+class BugComment(models.Model):
+    post = models.ForeignKey(Bug, on_delete=models.CASCADE, related_name='bug_comments', null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment_content = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    approved_comment = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.comment_content

@@ -3,6 +3,8 @@ $(document).ready(function(){
     autoplay: true,
     autoplaySpeed: 5000
   });
+  
+
 });
 
 
@@ -25,4 +27,7 @@ $(function() {
     });
   });
 });
+
+
+// hide default stripe payment button
 

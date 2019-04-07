@@ -304,15 +304,27 @@ footer {
 }
 
 .upvote-icon-link,
+.buy-upvote-icon-link,
 .downvote-icon-link {
   color:black;
   margin-right: 15px;
   margin-top:5px;
   margin-bottom:5px;
+  border:none;
+  background-color:transparent;
 }
 
-.upvote-icon-link:hover {
+.buy-upvote-icon-link {
+  margin-right:-10px;
+}
+.upvote-icon-link:hover,
+.buy-upvote-icon-link:hover{
   color:green;
+}
+
+.buy-upvote-icon-link:focus {
+  outline:none;
+  outline-color:transparent;
 }
 
 .downvote-icon-link:hover {
@@ -323,6 +335,33 @@ footer {
   margin-bottom:20px;
 }
 
+
+
 .no-items {
   margin-bottom:50px;
+}
+
+.total-items {
+  margin-left: -15px;
+}
+
+.pay-forms {
+  margin-left: 20px;
+  margin-right: 20px;
+  max-width: 75%;
+  justify-content:center;
+}
+
+.order-form {
+  margin-bottom: 50px;
+}
+
+/* remove asterisk from forms */
+
+.asteriskField {
+    display: none;
+}
+
+.stripe-button-el {
+  display:none!important;
 }

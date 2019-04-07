@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug, Content
-from .forms import BugForm, ContentSuggestionForm
+from .forms import BugForm, BugCommentForm, ContentSuggestionForm
+import stripe
 # Create your views here.
+
 
     
 #page for bug reports on the issue tracker
@@ -25,9 +28,27 @@ def issue_tracker_bugs(request):
 # return a single bug page based on the PK
 def single_bug(request, pk):
     bug = get_object_or_404(Bug, pk=pk)
+   
+    
     bug.views += 1
     bug.save()
-    return render(request, 'single_bug.html', {'bug': bug})
+    #comments ordering and pagination
+    comments = bug.bug_comments.all().order_by("-created_date")
+    
+    ## adding comment form
+    if request.method == "POST":
+        form = BugCommentForm(request.POST)
+        if form.is_valid():
+            bug_comments = form.save(commit=False)
+            bug_comments.post_id = pk
+            bug_comments.author = request.user
+            bug_comments.save()
+            
+            return render(request, 'single_bug.html', {'bug': bug, "form": form, "comments": comments})
+    else:
+        form = BugCommentForm
+        
+    return render(request, 'single_bug.html', {'bug': bug, "form": form, "comments": comments})
 
 #delete bug post view
 def delete_bug(request,pk):
@@ -100,10 +121,13 @@ def issue_tracker_content(request):
 
 # return a single content suggestion page based on the PK
 def single_content(request, pk):
+    
+    key = settings.STRIPE_PUBLISHABLE
+    
     content = get_object_or_404(Content, pk=pk)
     content.views += 1
     content.save()
-    return render(request, 'single_content.html', {'content': content})
+    return render(request, 'single_content.html', {'content': content, "key":key})
 
 
 #delete selected content suggestion post view
@@ -144,24 +168,26 @@ def create_or_edit_content(request, pk=None): #pk defaulted to None
 def upvote_content(request, pk):
     
     content = get_object_or_404(Content, pk=pk)
-    # ADD PAYMENT STUFF IN HERE:
-        #IF PAYMENT SUCCESSFUL:
-        
-    content.upvotes += 1
-    content.save()
-    return redirect(single_content, content.pk)
-   
-        
-#add downvote onto content suggestion
-def downvote_content(request, pk):
-   
-    content = get_object_or_404(Content, pk=pk)
     
-    if content.upvotes >= 1:
-    # check that upvote number is above 0. Don't let it go below 0.
-        content.upvotes -= 1
+    
+    ## STRIPE LOGIC FOR TAKING PAYMENTS
+    
+    stripe.api_key = settings.STRIPE_SECRET
+    
+    if request.method == "POST":
+        charge = stripe.Charge.create(
+            amount=100,
+            currency="GBP",
+            description="Buy Upvote for ",
+            source=request.POST['stripeToken']
+            )
+        
+        content.upvotes += 1
         content.save()
         return redirect(single_content, content.pk)
+        
+
+
+
     
-    else: 
-        return redirect(single_content, content.pk)
+    

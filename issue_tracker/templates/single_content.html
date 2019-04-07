@@ -1,22 +1,30 @@
 {% extends 'base.html' %} {% block content %}
 <section class="profile-section">
     <div class="row">
-        
-        
+
+
         <div class="col-8 centered-col">
             <div class="profile-block post-margin">
                 <div class="media">
                     <img class="post-profile-image d-none d-sm-block " src="{{ content.author.profile.image.url }}">
                     <div class="media-body">
-                        
-                        <form class="text-left" method="POST">
-                        {% csrf_token %}
-                            <a class="" href="{% url 'add_to_cart' content.pk %}"><i class="upvote-icon-link fas fa-chevron-circle-up vote-icon"></i></i></a>
+                        <form class="text-left" method="POST" action="{% url 'upvote_content' content.pk %}">
+                            {% csrf_token %}
+                            <!-- STRIPE PAYMENT BUTTON -->
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+                            data-description="Buy Upvote for {{ content.title }}" 
+                            data-amount="100"
+                            data-currency="GBP"
+                            data-locale="auto"
+                            data-key='{{ key }}'>
                             
-                            <a href="{% url 'downvote_content' content.pk %}"><i class="downvote-icon-link fas fa-chevron-circle-down vote-icon"></i></i></a>
+                            </script>
+                            <button class="buy-upvote-icon-link" href="#"><i class="upvote-icon-link fas fa-chevron-circle-up vote-icon"></i></button>
+                            <span>Buy Upvote</span>
+                            
                             <p class="upvotes-text">Upvotes: <b>{{ content.upvotes }}</b></p>
                         </form>
-                    
+
                         <h2 class="account-heading">{{ content.author }} <small class="post-date">: {{ content.date_posted|date:"d M " }}</small></h2>
                         <hr>
                         <div class="row">
@@ -27,9 +35,9 @@
                         </div>
                     </div>
                 </div>
-                <hr> 
+                <hr>
                 <div class="row">
-                    
+
                     <div class="col-4">
                         <p>Views: <small>{{ content.views }}</small></p>
                     </div>
@@ -44,14 +52,14 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         {% if user == bug.author or user.is_superuser %}
         <div class="col-12 text-center">
             <a class="btn btn-danger btn-xl" onclick="return confirm('Are you sure you want to delete this item?');" href="{% url 'delete_content' content.pk %}">Delete post</a>
         </div>
         {% endif %}
-        
+
     </div>
 
 </section>
