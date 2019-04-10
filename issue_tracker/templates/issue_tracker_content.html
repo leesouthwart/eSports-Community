@@ -1,6 +1,4 @@
-{% extends 'base.html' %} 
-{% load static from staticfiles %} 
-{% block content %}
+{% extends 'base.html' %} {% load static from staticfiles %} {% block content %}
 <section class="profile-section">
     <container>
         <div>
@@ -16,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            
+
             {% if user.is_authenticated %}
             <div class="row update-form-length">
                 <div class="col-12 text-right">
@@ -24,7 +22,7 @@
                 </div>
             </div>
             {% endif %}
-            
+
             <div class="row update-form-length text-center profile-block">
 
                 <div class="media-body">
@@ -44,7 +42,41 @@
                             <!-- BUG FIXES TAB -->
 
                             <div id="tab-2">
+                                <div class="row search-form">
+
+                                    <div class="col-6 text-left">
+                                        <form action="{% url 'filter_content' %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group form-inline ">
+                                                
+                                                <select class="form-control filter-form" id="sel1" name="filter_dropdown">
+                                                    
+                                                    <option selected disabled value="upvotes">Filters</option>
+                                                    <option value="upvotes">Upvotes</option>
+                                                    <option value="views">Views</option>
+                                                    <option value="newest">Newest Posts</option>
+                                                    <optgroup label="Status Filters">
+                                                    <option value="a">Backlog</option>
+                                                    <option value="b">In Progress</option>
+                                                    <option value="c">Completed</option>
+                                                </select>
+                                               <button type="submit" class="btn btn-outline-primary filter-btn" value="Select">Filter</button>
+                                               <a href="{% url 'issue_tracker_content' %}" class="btn btn-outline-danger filter-btn" value="Undo">Undo</a>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+
+                                    <div class="col-6 text-right">
+                                        <form action="{% url 'search_content' %}" method="get">
+                                            <input class="search-box" type="text" name="search">
+                                            <button type="submit" class="btn btn-outline-primary search-btn" value="Search">Search</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
                                 <!-- individual bug previews -->
+
                                 {% for s in contents %}
                                 <div class="row">
                                     <div class="col-3">
@@ -52,10 +84,10 @@
                                         <p><i class="far fa-eye"></i>{{ s.views }}</p>
                                         {% if s.get_status_display == 'Backlog' %}
                                         <p class="status-backlog-text"><b>Status: </b>{{ s.get_status_display }}</p>
-                                        
+
                                         {% elif s.get_status_display == 'In Progress' %}
                                         <p class="status-progress-text"><b>Status: </b>{{ s.get_status_display }}</p>
-                                        
+
                                         {% elif s.get_status_display == 'Completed' %}
                                         <p class="status-completed-text"><b>Status: </b>{{ s.get_status_display }}</p>
                                         {% endif %}
@@ -75,7 +107,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr> {% endfor %}
+                                <hr>
+                                {% empty %}
+                                <p>No posts found</p>
+                                {% endfor %}
+                                
+                                
                             </div>
                             <div class="pagination">
                                 <span class="step-links">
@@ -83,14 +120,14 @@
                                     <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
                                     <a class="btn btn-outline-primary" href="?page={{ contents.previous_page_number }}">previous</a>
                                     {% endif %}
-
+                                    {% if contents.has_previous or contents.has_next %}
                                     <span class="current italic">
                                         Page {{ contents.number }} of {{ contents.paginator.num_pages }}
                                     </span>
+                                    {% endif %}
                                     {% if contents.has_next %}
-                                    <a class="btn btn-outline-primary" href="?page={{ contents.next_page_number }}">next</a>
-                                    <a class="btn btn-outline-primary" href="?page={{ contents.paginator.num_pages }}">last &raquo;</a> 
-                                {% endif %}
+                                <a class="btn btn-outline-primary" href="?page={{ contents.next_page_number }}">next</a>
+                                <a class="btn btn-outline-primary" href="?page={{ contents.paginator.num_pages }}">last &raquo;</a> {% endif %}
                                 </span>
                             </div>
                         </div>

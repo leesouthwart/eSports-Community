@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from .models import Bug, BugComment, Content
+from .models import Bug, BugComment, Content, ContentComment
 
 #Bug Form
 class BugForm(forms.ModelForm):
@@ -21,4 +21,10 @@ class BugCommentForm(forms.ModelForm):
     
     class Meta:
         model = BugComment
+        fields = ('comment_content',)
+        
+class ContentCommentForm(forms.ModelForm):
+    
+    class Meta:
+        model = ContentComment
         fields = ('comment_content',)

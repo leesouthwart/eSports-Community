@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug, Content
-from .forms import BugForm, BugCommentForm, ContentSuggestionForm
+from .forms import BugForm, BugCommentForm, ContentSuggestionForm, ContentCommentForm
 import stripe
 # Create your views here.
 
@@ -33,7 +34,18 @@ def single_bug(request, pk):
     bug.views += 1
     bug.save()
     #comments ordering and pagination
-    comments = bug.bug_comments.all().order_by("-created_date")
+    comments_list = bug.bug_comments.all().order_by("created_date")
+    
+    paginated_comments = Paginator(comments_list, 5)
+    page = request.GET.get('page', 1)
+    
+    try:
+        comments = paginated_comments.page(page)
+    except PageNotAnInteger:
+        comments = paginated_comments.page(1)
+    except EmptyPage:
+        comments = paginated_comments.page(paginated_comments.num_pages)
+    
     
     ## adding comment form
     if request.method == "POST":
@@ -44,9 +56,10 @@ def single_bug(request, pk):
             bug_comments.author = request.user
             bug_comments.save()
             
-            return render(request, 'single_bug.html', {'bug': bug, "form": form, "comments": comments})
+            return HttpResponseRedirect(request.path_info, {'bug': bug, "form": form, "comments": comments})
     else:
         form = BugCommentForm
+        
         
     return render(request, 'single_bug.html', {'bug': bug, "form": form, "comments": comments})
 
@@ -55,6 +68,8 @@ def delete_bug(request,pk):
     bug = get_object_or_404(Bug, pk=pk)
     Bug.objects.filter(id=pk).delete()
     return redirect('issue_tracker_bugs')
+    
+
 
 # create a bug or edit a bug view. If the pk is None, new bug will be created
 @login_required
@@ -80,13 +95,16 @@ def create_or_edit_bug(request, pk=None): #pk defaulted to None
         
     return render(request, 'new_bug.html', {'BugForm': form, 'bug': bug})
     
+
+## BUG VOTES
+
 def upvote_bug(request, pk):
     
     bug = get_object_or_404(Bug, pk=pk)
     bug.upvotes += 1
     bug.save()
     return redirect(single_bug, bug.pk)
-    
+   
 def downvote_bug(request, pk):
     
     bug  = get_object_or_404(Bug, pk=pk)
@@ -127,7 +145,35 @@ def single_content(request, pk):
     content = get_object_or_404(Content, pk=pk)
     content.views += 1
     content.save()
-    return render(request, 'single_content.html', {'content': content, "key":key})
+    
+    #comments ordering and pagination
+    comments_li = content.content_comments.all().order_by("created_date")
+    
+    paginated_comments = Paginator(comments_li, 5)
+    page = request.GET.get('page', 1)
+    
+    try:
+        comments = paginated_comments.page(page)
+    except PageNotAnInteger:
+        comments = paginated_comments.page(1)
+    except EmptyPage:
+        comments = paginated_comments.page(paginated_comments.num_pages)
+   
+    
+    ## adding comment form
+    if request.method == "POST":
+        form = ContentCommentForm(request.POST)
+        if form.is_valid():
+            content_comments = form.save(commit=False)
+            content_comments.post_id = pk
+            content_comments.author = request.user
+            content_comments.save()
+            
+            return HttpResponseRedirect(request.path_info, {'content': content, "form": form, "comments": comments, "key": key})
+    else:
+        form = ContentCommentForm
+            
+    return render(request, 'single_content.html', {'content': content, "form": form, "comments": comments, "key": key})
 
 
 #delete selected content suggestion post view

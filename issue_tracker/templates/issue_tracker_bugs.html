@@ -1,6 +1,4 @@
-{% extends 'base.html' %} 
-{% load static from staticfiles %} 
-{% block content %}
+{% extends 'base.html' %} {% load static from staticfiles %} {% block content %}
 <section class="profile-section">
     <container>
         <div>
@@ -16,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            
+
             {% if user.is_authenticated %}
             <div class="row update-form-length">
                 <div class="col-12 text-right">
@@ -24,7 +22,7 @@
                 </div>
             </div>
             {% endif %}
-            
+
             <div class="row update-form-length text-center profile-block">
 
                 <div class="media-body">
@@ -45,6 +43,35 @@
 
                             <div id="tab-2">
                                 <!-- individual bug previews -->
+                                <div class="row search-form text-right">
+                                    <div class="col-6 text-left">
+                                        <form action="{% url 'filter_bugs' %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group form-inline ">
+
+                                                <select class="form-control filter-form" id="sel1" name="filter_dropdown">
+                                                    
+                                                    <option selected disabled value="upvotes">Filters</option>
+                                                    <option value="upvotes">Upvotes</option>
+                                                    <option value="views">Views</option>
+                                                    <option value="newest">Newest Posts</option>
+                                                    <optgroup label="Status Filters">
+                                                    <option value="a">Backlog</option>
+                                                    <option value="b">In Progress</option>
+                                                    <option value="c">Completed</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-outline-primary filter-btn" value="Select">Filter</button>
+                                                <a href="{% url 'issue_tracker_bugs' %}" class="btn btn-outline-danger filter-btn" value="Undo">Undo</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-6 ">
+                                        <form action="{% url 'search_bugs' %}" method="get">
+                                            <input type="text" name="search">
+                                            <button type="submit" class="btn btn-outline-primary filter-btn" value="Search">Search</button>
+                                        </form>
+                                    </div>
+                                </div>
                                 {% for bug in bugs %}
                                 <div class="row">
                                     <div class="col-3">
@@ -52,10 +79,10 @@
                                         <p><i class="far fa-eye"></i>{{ bug.views }}</p>
                                         {% if bug.get_status_display == 'Backlog' %}
                                         <p class="status-backlog-text"><b>Status: </b>{{ bug.get_status_display }}</p>
-                                        
+
                                         {% elif bug.get_status_display == 'In Progress' %}
                                         <p class="status-progress-text"><b>Status: </b>{{ bug.get_status_display }}</p>
-                                        
+
                                         {% elif bug.get_status_display == 'Completed' %}
                                         <p class="status-completed-text"><b>Status: </b>{{ bug.get_status_display }}</p>
                                         {% endif %}
@@ -75,7 +102,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr> {% endfor %}
+                                <hr> {% empty %}
+                                <p>No posts found</p>
+                                {% endfor %}
                             </div>
                             <div class="pagination">
                                 <span class="step-links">
@@ -83,14 +112,12 @@
                                     <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
                                     <a class="btn btn-outline-primary" href="?page={{ bugs.previous_page_number }}">previous</a>
                                     {% endif %}
-
+                                    {% if bugs.has_previous or bugs.has_next %}
                                     <span class="current italic">
                                         Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}
-                                    </span>
-                                    {% if bugs.has_next %}
-                                    <a class="btn btn-outline-primary" href="?page={{ bugs.next_page_number }}">next</a>
-                                    <a class="btn btn-outline-primary" href="?page={{ bugs.paginator.num_pages }}">last &raquo;</a> 
-                                {% endif %}
+                                    </span> {% endif %} {% if bugs.has_next %}
+                                <a class="btn btn-outline-primary" href="?page={{ bugs.next_page_number }}">next</a>
+                                <a class="btn btn-outline-primary" href="?page={{ bugs.paginator.num_pages }}">last &raquo;</a> {% endif %}
                                 </span>
                             </div>
                         </div>

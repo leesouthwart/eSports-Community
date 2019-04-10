@@ -365,3 +365,33 @@ footer {
 .stripe-button-el {
   display:none!important;
 }
+
+.comment-section {
+  margin-bottom: 40px;
+  overflow-wrap:break-word;
+  width:66%;
+  
+}
+
+.search-form {
+  margin-top: 15px;
+  
+}
+
+.filter-form {
+  width: 178px;
+}
+
+.filter-btn {
+  margin-left: 5px;
+}
+
+.search-btn {
+  margin-top: -4px;
+  margin-left:5px;
+}
+
+.search-box {
+  height:38px;
+  line-height:38px;
+}
