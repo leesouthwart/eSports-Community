@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block graphs_js %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    var bugs_completed = "{{bugs_completed}}";
+    var bugs_progress = "{{bugs_progress}}";
+    var bugs_backlog = "{{bugs_backlog}}";
+    var contents_completed = "{{contents_completed}}";
+    var contents_progress = "{{contents_progress}}";
+    var contents_backlog = "{{contents_backlog}}";    
+</script>
+<script type="text/javascript" src="{% static  'js/charts.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-section">
+    <div class="row text-center">
+        <div class="col-12">
+            <h1>Issue Tracker Data</h1>
+            <hr>
+            <p>
+                Below you can find live, up to date data regarding the amount of Bugs and Content suggestions<br>
+                that we tend to based on specific timeframes.
+            </p>
+            <p>Be aware that whilst the amount of bugs fixed is
+                generally higher than the amount of content suggestions we implement, bugs are normally much faster<br>
+                to fix. We aim to split our development time roughly 50/50 between fixing bugs, and implementing<br>
+                the content suggestions that our users pay to see added.
+            </p>
+        </div>
+        
+        <div class="col-12 col-lg-4">
+            <h4 class="chart-head">Issues per Day</h4>
+            <hr>
+            <div class="chart" id="piechart"></div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <h4 class="chart-head">Issues per Week</h4>
+            <hr>
+            <div class="chart" id="piechart2"></div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <h4 class="chart-head">Issues per Month</h4>
+            <hr>
+            <div class="chart" id="piechart3"></div>
+        </div>
+    </div>
+    
+    <div class="row text-center">
+        <div class="col-12">
+            <h2>Status Data</h2>
+            <hr>
+            <p>The charts seen below represent live data displaying the current state<br>
+            of the issues currently in our database.</p>
+        </div>
+    </div>
+    <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <h5 class="chart-head">Bug Report Statuses</h5>
+                <div class="chart" id="piechart4"></div>
+            </div>
+            
+            <div class="col-12 col-lg-6">
+                <h5 class="chart-head">Content Suggestions Data</h5>
+                <div class="chart" id="piechart5"></div>
+            </div>
+        </div>
+    
+</section>
+
+{% endblock %}
+

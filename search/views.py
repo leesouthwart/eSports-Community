@@ -33,7 +33,7 @@ def filter_bugs(request):
     
     #filter Backlog    
     elif filter_var == "a":
-        bugs = Bug.objects.all().filter(status="a")
+        bugs = Bug.objects.all().filter(status="a").order_by('-upvotes')
         
     #filter In Progress    
     elif filter_var == "b":

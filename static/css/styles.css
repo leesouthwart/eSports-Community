@@ -395,3 +395,17 @@ footer {
   height:38px;
   line-height:38px;
 }
+
+
+/* chart styles */
+
+.chart {
+    width:100%;
+    min-height: 400px;
+    margin-top: 20px;
+}
+
+.chart-head {
+  font-style:italic;
+  margin-top: 25px;
+}

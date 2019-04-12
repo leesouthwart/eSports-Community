@@ -232,7 +232,28 @@ def upvote_content(request, pk):
         content.save()
         return redirect(single_content, content.pk)
         
-
+def graphs_page(request):
+    
+    # Data to be passed in to google charts in charts.js
+    bugs_backlog = Bug.objects.all().filter(status="a").count()
+    bugs_progress = bugs = Bug.objects.filter(status="b").count()
+    bugs_completed = Bug.objects.filter(status="c").count()
+    
+    contents_backlog = Content.objects.filter(status="a").count()
+    contents_progress = Content.objects.filter(status="b").count()
+    contents_completed = Content.objects.filter(status="c").count()
+    
+    context = {
+        "bugs_backlog": bugs_backlog,
+        "bugs_progress": bugs_progress,
+        "bugs_completed": bugs_completed,
+        "contents_backlog": contents_backlog,
+        "contents_completed": contents_completed,
+        "contents_progress": contents_progress
+    }
+    print(bugs_progress)
+    
+    return render(request, 'graphs_page.html', context)
 
 
     
