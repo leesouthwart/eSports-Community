@@ -91,7 +91,8 @@ footer {
 
 
 .profile-image,
-.post-profile-image{
+.post-profile-image,
+.timeline-profile-image{
   display:inline-block;
   vertical-align:middle;
   
@@ -108,6 +109,13 @@ footer {
   border: 5px solid #15202b;
 }
 
+.timeline-profile-image {
+  height: 75px;
+  width: 75px;
+  border: 2px solid #15202b;
+  
+}
+
 .post-profile-image {
   height:100px;
   width:100px;
@@ -121,6 +129,10 @@ footer {
   border-radius: 3px;
   margin-bottom: 20px;
   
+}
+
+.account-heading {
+  text-transform:capitalize;
 }
 
 .centered-col {
@@ -194,21 +206,19 @@ footer {
 
 .post-image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 200px;
+  margin-bottom: 25px;
 }
 
 .post-link-style:hover {
   text-decoration: none;
-  
-  color:black;
+  color:rgba(0,0,0,0.5);
 }
 
-.post-link-style:hover > div {
-  background-color:#d0cdcd;
-}
 
 .post-link-style {
   color:black;
+  text-transform: capitalize;
   
 }
 
@@ -408,4 +418,32 @@ footer {
 .chart-head {
   font-style:italic;
   margin-top: 25px;
+}
+
+.chart-hr {
+  width:50%;
+  margin-bottom: 40px;
+}
+
+.post-margin {
+  margin-bottom: 50px;
+  margin-top:10px;
+}
+
+.post-content {
+  margin-bottom: 40px;
+}
+
+.date-posted,
+.timeline-sub {
+  margin-bottom:0;
+  font-style: italic;
+}
+
+.timeline-hr {
+  margin-bottom: 75px;
+}
+
+.title {
+  text-transform: capitalize;
 }

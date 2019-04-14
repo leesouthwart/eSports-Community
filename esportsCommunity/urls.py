@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 from home.views import index
 from accounts.views import (logout, login, register, user_profile,
                         update_user_profile, post_detail, create_or_edit_post,
-                        delete_post)
+                        delete_post, timeline)
 from django.conf import settings
 from django.conf.urls.static import static
 from accounts import url_reset as reset_urls
@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^profile/post/(?P<pk>\d+)/$', post_detail, name="post_detail"),
     url(r'^profile/post/(?P<pk>\d+)/edit/$', create_or_edit_post, name="edit_post"),
     url(r'^profile/post/(?P<pk>\d+)/delete/$', delete_post, name="delete_post"),
+    url('^timeline/$', timeline, name="timeline")
     
 
     

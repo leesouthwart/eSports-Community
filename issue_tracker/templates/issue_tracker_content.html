@@ -11,6 +11,8 @@
                         <hr>
                         <p>Feel free to submit any content suggestions and bug reports below, and upvote suggestions you enjoy.</p>
                         <p class="italic">Be aware that upvoting content suggestions costs £1. We promise to spend a large portion of<br> the eSports Communities development teams time working on the top voted content suggestion. Submitting and upvoting bug fixes is free.</p>
+                        <p class="issue-title"><a  href="{% url 'graphs_page' %}">Click here to see stats relating to the issue tracker.</a></p>
+
                     </div>
                 </div>
             </div>
@@ -95,7 +97,7 @@
                                     <div class="col-9">
                                         <div class="row">
                                             <div class="col-12 text-left">
-                                                <h4 class="issue-title"><a href="{% url 'single_content' s.id %}">{{ s.title }}</a></h4>
+                                                <h4 class="issue-title title"><a href="{% url 'single_content' s.id %}">{{ s.title }}</a></h4>
                                                 <hr>
                                             </div>
                                         </div>

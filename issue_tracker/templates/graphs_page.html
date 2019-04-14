@@ -20,7 +20,7 @@
     <div class="row text-center">
         <div class="col-12">
             <h1>Issue Tracker Data</h1>
-            <hr>
+            <hr class="chart-hr">
             <p>
                 Below you can find live, up to date data regarding the amount of Bugs and Content suggestions<br>
                 that we tend to based on specific timeframes.
@@ -34,17 +34,17 @@
         
         <div class="col-12 col-lg-4">
             <h4 class="chart-head">Issues per Day</h4>
-            <hr>
+            <hr class="chart-hr">
             <div class="chart" id="piechart"></div>
         </div>
         <div class="col-12 col-lg-4">
             <h4 class="chart-head">Issues per Week</h4>
-            <hr>
+            <hr class="chart-hr">
             <div class="chart" id="piechart2"></div>
         </div>
         <div class="col-12 col-lg-4">
             <h4 class="chart-head">Issues per Month</h4>
-            <hr>
+            <hr class="chart-hr">
             <div class="chart" id="piechart3"></div>
         </div>
     </div>
@@ -52,22 +52,29 @@
     <div class="row text-center">
         <div class="col-12">
             <h2>Status Data</h2>
-            <hr>
+            <hr class="chart-hr">
             <p>The charts seen below represent live data displaying the current state<br>
             of the issues currently in our database.</p>
         </div>
     </div>
     <div class="row text-center">
-            <div class="col-12 col-lg-6">
-                <h5 class="chart-head">Bug Report Statuses</h5>
-                <div class="chart" id="piechart4"></div>
-            </div>
-            
-            <div class="col-12 col-lg-6">
-                <h5 class="chart-head">Content Suggestions Data</h5>
-                <div class="chart" id="piechart5"></div>
-            </div>
+        <div class="col-12 col-lg-6">
+            <h5 class="chart-head">Bug Report Statuses</h5>
+            <hr class="chart-hr">
+            <div class="chart" id="piechart4"></div>
         </div>
+            
+        <div class="col-12 col-lg-6">
+            <h5 class="chart-head">Content Suggestions Data</h5>
+            <hr class="chart-hr">
+            <div class="chart" id="piechart5"></div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-12">
+            <a class="btn btn-success btn-xl" href="{% url 'issue_tracker_content' %}">Back to Issue Tracker</a>
+        </div>
+    </div>
     
 </section>
 

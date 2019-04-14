@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from .models import Profile, Post
+from .models import Profile, Post, PostComment
 
 
 
@@ -65,3 +65,8 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'post_content', 'image']
         
+class PostCommentForm(forms.ModelForm):
+    
+    class Meta:
+        model = PostComment
+        fields = ['comment_content']

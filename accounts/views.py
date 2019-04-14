@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from django.utils import timezone
+from django.http import HttpResponseRedirect
 from home.views import index
 from accounts.forms import (UserLoginForm, UserRegistrationForm, 
-                            UserUpdateForm, ProfileUpdateForm, PostForm)
+                            UserUpdateForm, ProfileUpdateForm, PostForm, PostCommentForm)
 from accounts.models import Profile, Post
 
 ## ACCOUNT.VIEWS
@@ -114,7 +116,34 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.views += 1
     post.save()
-    return render(request, 'postdetail.html', {'post': post})
+    
+    #comments ordering and pagination
+    comments_li = post.post_comments.all().order_by("created_date")
+    
+    paginated_comments = Paginator(comments_li, 5)
+    page = request.GET.get('page', 1)
+    
+    try:
+        comments = paginated_comments.page(page)
+    except PageNotAnInteger:
+        comments = paginated_comments.page(1)
+    except EmptyPage:
+        comments = paginated_comments.page(paginated_comments.num_pages)
+   
+    
+    ## adding comment form
+    if request.method == "POST":
+        form = PostCommentForm(request.POST)
+        if form.is_valid():
+            content_comments = form.save(commit=False)
+            content_comments.post_id = pk
+            content_comments.author = request.user
+            content_comments.save()
+            
+            return HttpResponseRedirect(request.path_info, {'post': post, "form": form, "comments": comments})
+    else:
+        form = PostCommentForm
+    return render(request, 'postdetail.html', {'post': post, "form": form, "comments": comments})
     
 
 
@@ -143,3 +172,16 @@ def delete_post(request, pk):
     Post.objects.filter(id=pk).delete()
     return redirect('profile')
 
+def timeline(request):
+    posts_list = Post.objects.all().order_by('-date_posted')
+    
+    paginated_posts = Paginator(posts_list, 10)
+    page = request.GET.get('page', 1)
+    try:
+        posts = paginated_posts.page(page)
+    except PageNotAnInteger:
+        posts = paginated_posts.page(1)
+    except EmptyPage:
+        posts = paginated_posts.page(paginated_posts.num_pages)
+    
+    return render(request, 'timeline.html', {"posts": posts})

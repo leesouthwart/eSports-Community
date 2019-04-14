@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %}{% block content %}
+
+
+<section class="profile-section">
+    <div class="col-8 centered-col">
+        <h3 class="text-center">Timeline</h3>
+        <p class="timeline-sub text-center">
+            Keep up to date with the community!
+        </p>
+        <hr class="timeline-hr"> {% for post in posts %}
+        <div class="post-margin">
+            <div class="media">
+                <img class="timeline-profile-image d-none d-sm-block " src="{{ post.author.profile.image.url }}">
+                <div class="media-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h2 class="account-heading">{{ post.author }}</h2>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="{% url 'post_detail' post.id %}" class="btn btn-success btn-sm">Reply</a>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5><a class="post-link-style" href="{% url 'post_detail' post.id %}">{{post.title}}</a></h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="post-content">{{post.post_content| truncatechars:20}}</p>
+                            {% if post.image %}
+                            <img class="post-image" src="{{ post.image.url }}"> {% endif %}
+                            <p class="date-posted">{{ post.date_posted }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr> {% endfor %}
+            <div class="pagination">
+                <span class="step-links">
+                {% if posts.has_previous %}
+                <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
+                <a class="btn btn-outline-primary" href="?page={{ contents.previous_page_number }}">previous</a>
+                {% endif %}
+                {% if posts.has_previous or posts.has_next %}
+                <span class="current italic">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </span> 
+                {% endif %} 
+                {% if posts.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ posts.next_page_number }}">next</a>
+                <a class="btn btn-outline-primary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a> 
+                {% endif %}
+                </span>
+            </div>
+</section>
+{% endblock %}

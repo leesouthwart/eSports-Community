@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
 <section class="profile-section">
     <div class="row">
         <div class="col-8 centered-col">
@@ -16,33 +18,75 @@
                         </div>
                     </div>
                 </div>
-                <hr> 
-                {% if post.image %}
+                <hr> {% if post.image %}
                 <div class="row">
                     <div class="col-12">
                         <img class="post-image" src="{{ post.image.url }}">
                     </div>
                 </div>
-                <hr> 
-                {% endif %}
+                <hr> {% endif %}
                 <div class="row">
                     <div class="col-4">
                         <p>Views: <small>{{ post.views }}</small></p>
                     </div>
+                    {% if user == post.author %}
                     <div class="col-4 text-center">
                         <a class="btn btn-primary btn-xl" href="{% url 'profile' %}">Back to profile</a>
                     </div>
                     <div class="col-4 text-right">
                         <a class="btn btn-dark-blue btn-xl" href="{% url 'edit_post' post.id %}">Edit post</a>
                     </div>
+                    {% else %}
+                    <div class="col-4 text-center">
+                        <a class="btn btn-primary btn-xl" href="{% url 'timeline' %}">Back to Timeline</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-
+        {% if user == post.author %}
         <div class="col-12 text-center">
             <a class="btn btn-danger btn-xl" href="{% url 'delete_post' post.id %}">Delete post</a>
         </div>
+        {% endif %}
+        <div class="col-8 centered-col">
+            <h3>Comments</h3>
+            <hr> {% for comment in comments %}
+            <div>
+                <h6>{{ comment.author }}</h6>
+                <div class="comment-section">
+                    <p>{{ comment.comment_content|linebreaks }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <small>{{ comment.created_date }}</small>
+                    </div>
+                </div>
+                <hr>
+            </div>
 
+            {% empty %}
+            <p>No comments yet</p>
+            {% endfor %}
+            <div class="pagination">
+                <span class="step-links">
+            {% if comments.has_previous %}
+                <a class="btn btn-outline-primary" href="?page=1">&laquo; first</a>
+                <a class="btn btn-outline-primary" href="?page={{ comments.previous_page_number }}">previous</a>
+            {% endif %}
+            {% if comments.has_next or comments.has_previous %}
+            <span class="current italic">
+            Page {{ comments.number }} of {{ comments.paginator.num_pages }}
+            </span> {% endif %} {% if comments.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ comments.next_page_number }}">next</a>
+                <a class="btn btn-outline-primary" href="?page={{ comments.paginator.num_pages }}">last &raquo;</a> {% endif %}
+                </span>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {{ form |crispy }} {% csrf_token %}
+                <button class="btn btn-success btn-xl" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 
 </section>
