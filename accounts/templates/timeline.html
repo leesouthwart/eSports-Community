@@ -7,7 +7,8 @@
         <p class="timeline-sub text-center">
             Keep up to date with the community!
         </p>
-        <hr class="timeline-hr"> {% for post in posts %}
+        <hr class="timeline-hr"> 
+        {% for post in posts %}
         <div class="post-margin">
             <div class="media">
                 <img class="timeline-profile-image d-none d-sm-block " src="{{ post.author.profile.image.url }}">
@@ -38,7 +39,13 @@
                     </div>
                 </div>
             </div>
-            <hr> {% endfor %}
+            <hr> 
+        {% empty %}
+        <div class="col-12 text-center">
+                <h4 class="mt-4">No Posts Found</h4>
+                <hr>
+        </div>
+        {% endfor %}
             <div class="pagination">
                 <span class="step-links">
                 {% if posts.has_previous %}

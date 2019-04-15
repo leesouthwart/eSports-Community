@@ -1,0 +1,449 @@
+body {
+  overflow-x: hidden;
+}
+
+/* bg image */
+
+header.masthead {
+  padding-top: 10rem;
+  padding-bottom: 0;
+  background-image: url("../img/bg.jpg");
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+}
+
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+header.masthead h1 {
+  font-size: 2rem;
+}
+
+header.masthead p {
+  font-weight: 300;
+}
+
+@media (min-width: 768px) {
+  header.masthead p {
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 992px) {
+  header.masthead {
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  header.masthead h1 {
+    font-size: 4rem;
+  }
+}
+
+.black-box {
+  padding: 70px;
+  background-color: rgba(0, 0, 0, 0.90);
+}
+
+
+/* nav */
+
+.bg-dark-opacity {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+
+
+/* footer */
+
+.icon-size {
+  font-size: 22px;
+  padding: 5px;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.97);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-text {
+  color: #007bff;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* profile page */
+
+
+.profile-image,
+.post-profile-image,
+.timeline-profile-image{
+  display:inline-block;
+  vertical-align:middle;
+  
+  background: #15202b;
+  border-radius: 50%;
+  margin-right: 20px;
+  margin-bottom: 16px;
+  object-fit: cover;
+  
+}
+.profile-image {
+  height: 175px;
+  width:175px;
+  border: 5px solid #15202b;
+}
+
+.timeline-profile-image {
+  height: 75px;
+  width: 75px;
+  border: 2px solid #15202b;
+  
+}
+
+.post-profile-image {
+  height:100px;
+  width:100px;
+  border: 2px solid #15202b;
+}
+
+.profile-block {
+  background: #f3f3f3;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  
+}
+
+.account-heading {
+  text-transform:capitalize;
+}
+
+.centered-col {
+  margin:auto;
+}
+
+.tick {
+  font-size: 24px;
+  color: green;
+}
+
+.cross {
+  font-size: 24px;
+  color: red;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.update-form-length {
+  width:75%;
+  margin:auto;
+  margin-top: 50px;
+}
+
+.edit-profile-block {
+  width:75%;
+  margin:auto;
+  margin-top: 25px;
+}
+.user-header {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.form-width {
+  width:75%;
+  margin:auto;
+}
+
+.profile-section {
+  margin-top:100px;
+  margin-bottom: 200px;
+}
+
+.btn-dark-blue {
+  background-color:#1e3a9a;
+  border-color:#1e3a9a;
+  color:white;
+  
+}
+
+.btn-dark-blue:hover {
+  color:white;
+  background-color:#455fb7;
+}
+
+.reset-link {
+  margin-top:10px;
+}
+
+.post-date {
+  font-size: 50%;
+  color:rgba(33, 37, 41, 0.75);
+}
+
+.post-margin {
+  margin-top: 25px;
+}
+
+.post-image {
+  max-width: 100%;
+  max-height: 200px;
+  margin-bottom: 25px;
+}
+
+.post-link-style:hover {
+  text-decoration: none;
+  color:rgba(0,0,0,0.5);
+}
+
+
+.post-link-style {
+  color:black;
+  text-transform: capitalize;
+  
+}
+
+/* issue tracker tabs */
+
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:hover{
+  background-color: #ded8d8;
+}
+
+.panel {
+  display:none;
+}
+
+.active-panel {
+  display:block;
+}
+
+.status-backlog-text,
+.status-progress-text,
+.status-completed-text{
+  border-radius:12px;
+  padding-top:4px;
+  padding-bottom:4px;
+}
+
+.status-backlog-text {
+  background-color:#f32626;
+}
+
+.status-progress-text {
+  background-color:#f9de30;
+}
+
+.status-completed-text {
+  background-color:#00ff40;
+}
+
+.fa-thumbs-up,
+.fa-eye{
+  margin-right:10px;
+  margin-top: 16px;
+  font-size: 24px;
+}
+
+
+.issue-title {
+  padding:12px;
+  padding-left:0;
+  margin-bottom:0;
+  
+}
+
+.issue-title a {
+  color:black;
+}
+.issue-title a:hover {
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.issue-subtext {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.current {
+  margin-left:5px;
+  margin-right:5px;
+}
+
+/* change default hover colours for bs4 buttons */
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:not(:disabled):not(.disabled):active{
+  background-color:#cae4ff;
+  color: #007bff;
+}
+
+/* remove box shadow from bs4 buttons */
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:focus{
+  box-shadow: none;
+}
+
+.new-issue-button {
+  margin-bottom:-20px;
+}
+
+.vote-icon {
+  
+  font-size:24px;
+}
+
+.upvote-icon-link,
+.buy-upvote-icon-link,
+.downvote-icon-link {
+  color:black;
+  margin-right: 15px;
+  margin-top:5px;
+  margin-bottom:5px;
+  border:none;
+  background-color:transparent;
+}
+
+.buy-upvote-icon-link {
+  margin-right:-10px;
+}
+.upvote-icon-link:hover,
+.buy-upvote-icon-link:hover{
+  color:green;
+}
+
+.buy-upvote-icon-link:focus {
+  outline:none;
+  outline-color:transparent;
+}
+
+.downvote-icon-link:hover {
+  color:red;
+}
+
+.upvotes-text {
+  margin-bottom:20px;
+}
+
+
+
+.no-items {
+  margin-bottom:50px;
+}
+
+.total-items {
+  margin-left: -15px;
+}
+
+.pay-forms {
+  margin-left: 20px;
+  margin-right: 20px;
+  max-width: 75%;
+  justify-content:center;
+}
+
+.order-form {
+  margin-bottom: 50px;
+}
+
+/* remove asterisk from forms */
+
+.asteriskField {
+    display: none;
+}
+
+.stripe-button-el {
+  display:none!important;
+}
+
+.comment-section {
+  margin-bottom: 40px;
+  overflow-wrap:break-word;
+  width:66%;
+  
+}
+
+.search-form {
+  margin-top: 15px;
+  
+}
+
+.filter-form {
+  width: 178px;
+}
+
+.filter-btn {
+  margin-left: 5px;
+}
+
+.search-btn {
+  margin-top: -4px;
+  margin-left:5px;
+}
+
+.search-box {
+  height:38px;
+  line-height:38px;
+}
+
+
+/* chart styles */
+
+.chart {
+    width:100%;
+    min-height: 400px;
+    margin-top: 20px;
+}
+
+.chart-head {
+  font-style:italic;
+  margin-top: 25px;
+}
+
+.chart-hr {
+  width:50%;
+  margin-bottom: 40px;
+}
+
+.post-margin {
+  margin-bottom: 50px;
+  margin-top:10px;
+}
+
+.post-content {
+  margin-bottom: 40px;
+}
+
+.date-posted,
+.timeline-sub {
+  margin-bottom:0;
+  font-style: italic;
+}
+
+.timeline-hr {
+  margin-bottom: 75px;
+}
+
+.title {
+  text-transform: capitalize;
+}
