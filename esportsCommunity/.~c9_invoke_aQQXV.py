@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import env
+import env.
 from django.conf.urls.static import static
 import dj_database_url
 
@@ -83,14 +83,14 @@ WSGI_APPLICATION = 'esportsCommunity.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-#DATABASES = {'default': dj_database_url.parse("postgres://wqalqvfcahwymu:fe4b25dd98ce225a9c324aeb51a53f190f67df0db529d3f88d840a71af85bb68@ec2-79-125-4-72.eu-west-1.compute.amazonaws.com:5432/d2dl56gu4khjhr")}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+DATABASES = {'default': dj_data}
+DATABASES = {'default': dj_database_url.parse("postgres://wqalqvfcahwymu:fe4b25dd98ce225a9c324aeb51a53f190f67df0db529d3f88d840a71af85bb68@ec2-79-125-4-72.eu-west-1.compute.amazonaws.com:5432/d2dl56gu4khjhr")}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
