@@ -11,7 +11,7 @@
                         <hr>
                         <p>Feel free to submit any content suggestions and bug reports below, and upvote suggestions you enjoy.</p>
                         <p class="italic">Be aware that upvoting content suggestions costs £1. We promise to spend a large portion of<br> the eSports Communities development teams time working on the top voted content suggestion. Submitting and upvoting bug fixes is free.</p>
-                        <p class="issue-title"><a  href="{% url 'graphs_page' %}">Click here to see stats relating to the issue tracker.</a></p>
+                        <p><a  href="{% url 'graphs_page' %}">Click here to see stats relating to the issue tracker.</a></p>
                     </div>
                 </div>
             </div>
@@ -39,53 +39,97 @@
                                     <a class="nav-link active" href="{% url 'issue_tracker_bugs' %}">Bug Fixes</a>
                                 </li>
                             </ul>
-
+                            
                             <!-- BUG FIXES TAB -->
 
                             <div id="tab-2">
                                 <!-- individual bug previews -->
                                 <div class="row search-form text-right">
-                                    <div class="col-6 text-left">
+                                    <div class="col-lg-6 col-12 text-left">
                                         <form action="{% url 'filter_bugs' %}" method="post">
                                             {% csrf_token %}
                                             <div class="form-group form-inline ">
 
                                                 <select class="form-control filter-form" id="sel1" name="filter_dropdown">
+                                                    {% if filter_var == 'none' %}
+                                                    <option selected disabled value="upvotes">Sort by / Filter</option>
+                                                    {% else %}
+                                                    <option disabled value="upvotes">Filters</option>
+                                                    {% endif %}
                                                     
-                                                    <option selected disabled value="upvotes">Filters</option>
+                                                    {% if filter_var == 'upvotes' %}
+                                                    <option selected value="upvotes">Upvotes</option>
+                                                    {% else %}
                                                     <option value="upvotes">Upvotes</option>
+                                                    {% endif %}
+                                                    
+                                                    {% if filter_var == 'views' %}
+                                                    <option selected value="upvotes">Views</option>
+                                                    {% else %}
                                                     <option value="views">Views</option>
+                                                    {% endif %}
+                                                    
+                                                    {% if filter_var == 'newest' %}
+                                                    <option selected value="newest">Newest Posts</option>
+                                                    {% else %}
                                                     <option value="newest">Newest Posts</option>
+                                                    {% endif %}
+                                                    
+                                                    
                                                     <optgroup label="Status Filters">
+                                                        
+                                                    {% if filter_var == 'a' %}
+                                                    <option selected value="a">Backlog</option>
+                                                    {% else %}
                                                     <option value="a">Backlog</option>
+                                                    {% endif %}
+                                                    
+                                                    {% if filter_var == 'b' %}
+                                                    <option selected value="b">In Progress</option>
+                                                    {% else %}
                                                     <option value="b">In Progress</option>
+                                                    {% endif %}
+                                                    
+                                                    {% if filter_var == 'c' %}
+                                                    <option selected value="c">Completed</option>
+                                                    {% else %}
                                                     <option value="c">Completed</option>
+                                                    {% endif %}
                                                 </select>
                                                 <button type="submit" class="btn btn-outline-primary filter-btn" value="Select">Filter</button>
-                                                <a href="{% url 'issue_tracker_bugs' %}" class="btn btn-outline-danger filter-btn" value="Undo">Undo</a>
+                                               <a href="{% url 'issue_tracker_bugs' %}" class="btn btn-outline-danger filter-btn" value="Undo">Undo</a>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="col-6 ">
+                                    <div class="col-lg-6 d-none d-lg-block text-right">
                                         <form action="{% url 'search_bugs' %}" method="get">
-                                            <input type="text" name="search">
+                                            <input class="search-box" type="text" name="search">
                                             <button type="submit" class="btn btn-outline-primary filter-btn" value="Search">Search</button>
                                         </form>
                                     </div>
+                                    
+                                    <div class="col-12 text-left d-block d-lg-none">
+                                        <form action="{% url 'search_bugs' %}" method="get">
+                                            <input class="search-box" type="text" name="search">
+                                            <button type="submit" class="btn btn-outline-primary filter-btn" value="Search">Search</button>
+                                        </form>
+                                    </div>
+                                    
                                 </div>
+                                <hr>
                                 {% for bug in bugs %}
                                 <div class="row">
                                     <div class="col-3">
                                         <p><i class="far fa-thumbs-up"></i><b>{{ bug.upvotes }}</b></p>
                                         <p><i class="far fa-eye"></i>{{ bug.views }}</p>
                                         {% if bug.get_status_display == 'Backlog' %}
-                                        <p class="status-backlog-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        <p class="status-backlog-text"><span class="d-none d-md-block"><b>Status: </b>{{ bug.get_status_display }}</span></p>
 
                                         {% elif bug.get_status_display == 'In Progress' %}
-                                        <p class="status-progress-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        <p class="status-progress-text"><span class="d-none d-md-block"><b>Status: </b>{{ bug.get_status_display }}</span></p>
 
                                         {% elif bug.get_status_display == 'Completed' %}
-                                        <p class="status-completed-text"><b>Status: </b>{{ bug.get_status_display }}</p>
+                                        <p class="status-completed-text"><span class="d-none d-md-block"><b>Status: </b>{{ bug.get_status_display }}</span></p>
                                         {% endif %}
                                     </div>
                                     <div class="col-9">

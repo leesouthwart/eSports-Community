@@ -62,7 +62,7 @@
                 <div class="col-2 align-self-end">
                     <a class="btn btn-primary btn-xl" href="{% url 'update profile' %}">Edit profile</a>
                 </div>
-                
+
                 <div class="col-2 offset-8 text-right">
                     <a class="btn btn-dark-blue btn-xl" href="{% url 'new_post' %}">New Post</a>
                 </div>
@@ -82,22 +82,22 @@
                                     <h5>{{post.title}}</h5>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-12">
                                     <p>{{post.post_content| truncatechars:20}}</p>
                                 </div>
                             </div>
+                            {% if post.image %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <img class="post-image" src="{{ post.image.url }}">
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    {% if post.image %}
-                    <hr>
-                    <div class="row">
-                        <div class="col-12">
-                            <img class="post-image" src="{{ post.image.url }}">
-                        </div>
-                    </div>
-                    {% endif %}
+
                 </div>
             </a>
             {% empty %}

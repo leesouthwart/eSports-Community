@@ -155,22 +155,33 @@ def create_or_edit_post(request, pk=None):
     """
     
     post = get_object_or_404(Post, pk=pk) if pk else None
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.date_posted = timezone.now()
-            post.save()
-            return redirect(post_detail, post.pk)
+    
+    logged_in_user = request.user.username
+    # convert to string to compare to logged_in_user
+    post_user = str(post.author) if pk else None
+    
+    # check to stop people forcing the url and editing other peoples posts
+    if logged_in_user == post_user or request.user.is_superuser:
+        if request.method == "POST":
+            form = PostForm(request.POST, request.FILES, instance=post)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                post.date_posted = timezone.now()
+                post.save()
+                return redirect(post_detail, post.pk)
+        else:
+            form = PostForm(instance=post)
     else:
-        form = PostForm(instance=post)
+        return redirect(timeline)
+        
     return render(request, 'new_blogpost.html', {'PostForm': form, 'post': post})  
 
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     Post.objects.filter(id=pk).delete()
     return redirect('profile')
+    
 
 def timeline(request):
     posts_list = Post.objects.all().order_by('-date_posted')

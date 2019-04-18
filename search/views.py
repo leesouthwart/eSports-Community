@@ -56,7 +56,7 @@ def filter_bugs(request):
     except EmptyPage:
         bugs = paginated_bugs.page(paginated_bugs.num_pages)
         
-    return render(request, "issue_tracker_bugs.html", {"bugs": bugs})
+    return render(request, "issue_tracker_bugs.html", {"bugs": bugs, 'filter_var': filter_var})
     
 ## DROPDOWN FILTERING ON CONTENTS PAGE
 
@@ -96,7 +96,7 @@ def filter_content(request):
     except EmptyPage:
         contents = paginated_content.page(paginated_content.num_pages)
         
-    return render(request, "issue_tracker_content.html", {"contents": contents})
+    return render(request, "issue_tracker_content.html", {"contents": contents, "filter_var": filter_var})
             
     
     

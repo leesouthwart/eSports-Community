@@ -10,7 +10,7 @@
         <div>
             <div class="row edit-profile-block text-center profile-block">
                 <div class="media-body">
-                    <div class="col-12">
+                    <div class="col-10 col-md-12 text-center">
                         <form class="form-width" method="POST" enctype="multipart/form-data">
                             {% csrf_token %} 
                             {{ user_form|crispy }} 

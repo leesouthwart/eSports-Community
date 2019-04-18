@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 <section class="profile-section">
     <div class="row">
         <div class="col-8 centered-col">
@@ -16,28 +14,29 @@
                                 <p>{{post.post_content|linebreaks}}</p>
                             </div>
                         </div>
+                        {% if post.image %}
+                        <div class="row">
+                            <div class="col-12">
+                                <img class="post-image" src="{{ post.image.url }}">
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
-                <hr> {% if post.image %}
+                <hr>
                 <div class="row">
-                    <div class="col-12">
-                        <img class="post-image" src="{{ post.image.url }}">
-                    </div>
-                </div>
-                <hr> {% endif %}
-                <div class="row">
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12 text-center">
                         <p>Views: <small>{{ post.views }}</small></p>
                     </div>
                     {% if user == post.author %}
-                    <div class="col-4 text-center">
+                    <div class="col-12 col-sm-4 mb-3 text-center">
                         <a class="btn btn-primary btn-xl" href="{% url 'profile' %}">Back to profile</a>
                     </div>
-                    <div class="col-4 text-right">
+                    <div class="col-12 col-sm-4 mb-3 text-center">
                         <a class="btn btn-dark-blue btn-xl" href="{% url 'edit_post' post.id %}">Edit post</a>
                     </div>
                     {% else %}
-                    <div class="col-4 text-center">
+                    <div class="col-12 text-center">
                         <a class="btn btn-primary btn-xl" href="{% url 'timeline' %}">Back to Timeline</a>
                     </div>
                     {% endif %}
@@ -49,7 +48,7 @@
             <a class="btn btn-danger btn-xl" href="{% url 'delete_post' post.id %}">Delete post</a>
         </div>
         {% endif %}
-        <div class="col-8 centered-col">
+        <div class="col-8 mt-4 centered-col">
             <h3>Comments</h3>
             <hr> {% for comment in comments %}
             <div>

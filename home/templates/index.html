@@ -30,16 +30,17 @@
                     </div>
                     <!-- Events item for carosel -->
                     <div>
-                        <h5>Events</h5>
-                        <p>Check out the biggest upcoming events in the eSports community</p>
-                        <a class="btn btn-primary btn-xl" href="#">Events!</a>
+                        <h5>Timeline</h5>
+                        <p>Get involved with the rest of the gamers on the eSports Community platform.</p>
+                        <a class="btn btn-primary btn-xl" href="{% url 'timeline' %}">Timeline!</a>
                     </div>
                 
                     <!-- News item for carosel -->
                     <div>
-                        <h5>News</h5>
-                        <p>Keep up to date with the latest news in the eSports world</p>
-                        <a class="btn btn-primary btn-xl" href="#">News!</a>
+                        <h5>Database Charts</h5>
+                        <p>In our efforts to be transparent with our users we have put all the info regarding<br>
+                        the work we do on bugs and new content suggestions into one easy to read page.</p>
+                        <a class="btn btn-primary btn-xl" href="{% url 'graphs_page' %}">Database!</a>
                     </div>
                 </div>
                 {% else %}

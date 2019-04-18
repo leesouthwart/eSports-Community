@@ -244,6 +244,8 @@ footer {
   border-radius:12px;
   padding-top:4px;
   padding-bottom:4px;
+  width:100%;
+  height:60px;
 }
 
 .status-backlog-text {
@@ -446,4 +448,25 @@ footer {
 
 .title {
   text-transform: capitalize;
+}
+
+@media (max-width: 532px) {
+   .filter-btn {
+      margin-top:10px;
+      
+  }
+}
+
+@media (max-width: 460px) {
+   .search-btn{
+      margin-top:10px;
+      
+  }
+}
+
+@media (max-width: 532px) {
+  .respons-text-center {
+    text-align: center!important;
+    margin-top: 15px;
+  }
 }

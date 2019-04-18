@@ -30,16 +30,17 @@
             <hr>
             <div class="row">
 
-                <div class="col-4">
+                <div class="col-12 col-md-4 respons-text-center">
                     <p>Views: <small>{{ bug.views }}</small></p>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-12 col-md-4 text-center">
                     <a class="btn btn-primary btn-xl" href="{% url 'issue_tracker_bugs' %}">Back to Bugs</a>
                 </div>
                 {% if user == bug.author or user.is_superuser %}
-                <div class="col-4 text-right">
+                <div class="col-12 col-md-4 respons-text-center text-right">
                     <a class="btn btn-dark-blue btn-xl" href="{% url 'edit_bug' bug.id %}">Edit Bug</a>
                 </div>
+                
                 {% endif %}
             </div>
         </div>
@@ -48,7 +49,7 @@
 
     {% if user == bug.author or user.is_superuser %}
     <div class="col-12 text-center">
-        <a class="btn btn-danger btn-xl" onclick="return confirm('Are you sure you want to delete this item?');" href="{% url 'delete_bug' bug.id %}">Delete post</a>
+        <a class="btn btn-danger mb-4 btn-xl" onclick="return confirm('Are you sure you want to delete this item?');" href="{% url 'delete_bug' bug.id %}">Delete post</a>
     </div>
     {% endif %}
 

@@ -13,7 +13,7 @@ import stripe
     
 #page for bug reports on the issue tracker
 def issue_tracker_bugs(request):
-    
+    filter_var = 'none'
     bug_list = Bug.objects.all().order_by('-upvotes')
     paginated_bugs = Paginator(bug_list, 5)
     page = request.GET.get('page', 1)
@@ -24,7 +24,7 @@ def issue_tracker_bugs(request):
     except EmptyPage:
         bugs = paginated_bugs.page(paginated_bugs.num_pages)
         
-    return render(request, 'issue_tracker_bugs.html', {"bugs": bugs})
+    return render(request, 'issue_tracker_bugs.html', {"bugs": bugs, "filter_var": filter_var})
 
 # return a single bug page based on the PK
 def single_bug(request, pk):
@@ -76,22 +76,32 @@ def delete_bug(request,pk):
 def create_or_edit_bug(request, pk=None): #pk defaulted to None
     
     bug = get_object_or_404(Bug, pk=pk) if pk else None
-    if request.method == "POST":
-        form = BugForm(request.POST, request.FILES, instance=bug)
-        if form.is_valid():
+    
+    logged_in_user = request.user.username
+    ## needs to be string to be able to compare to logged_in_user
+    bug_user = str(bug.author) if pk else None
+    
+    # check to stop people forcing the url and editing other peoples posts
+    if logged_in_user == bug_user or request.user.is_superuser:
+        
+        if request.method == "POST":
+            form = BugForm(request.POST, request.FILES, instance=bug)
+            if form.is_valid():
             
-            bug = form.save(commit=False)
+                bug = form.save(commit=False)
            
-            # Set author to request.user if it is a new post
-            # else, do not edit bug.author
-            if not pk:
-                bug.author = request.user
+                # Set author to request.user if it is a new post
+                # else, do not edit bug.author
+                if not pk:
+                    bug.author = request.user
             
-            bug.date_posted = timezone.now()
-            bug.save()
-            return redirect(single_bug, bug.pk)
+                bug.date_posted = timezone.now()
+                bug.save()
+                return redirect(single_bug, bug.pk)
+        else:
+            form = BugForm(instance=bug)
     else:
-        form = BugForm(instance=bug)
+        return redirect(issue_tracker_bugs)
         
     return render(request, 'new_bug.html', {'BugForm': form, 'bug': bug})
     
@@ -122,7 +132,7 @@ def downvote_bug(request, pk):
 
 #page for content suggestions on the issue tracker
 def issue_tracker_content(request):
-    
+    filter_var = "none"
     content_list = Content.objects.all().order_by('-upvotes')
     paginated_content = Paginator(content_list, 5)
     page = request.GET.get('page', 1)
@@ -132,8 +142,8 @@ def issue_tracker_content(request):
         contents = paginated_content.page(1)
     except EmptyPage:
         contents = paginated_content.page(paginated_content.num_pages)
-        
-    return render(request, 'issue_tracker_content.html', {"contents": contents})
+    
+    return render(request, 'issue_tracker_content.html', {"contents": contents, "filter_var": filter_var})
 
 
 
@@ -190,22 +200,33 @@ def delete_content(request,pk):
 def create_or_edit_content(request, pk=None): #pk defaulted to None
     
     content = get_object_or_404(Content, pk=pk) if pk else None
-    if request.method == "POST":
-        form = ContentSuggestionForm(request.POST, request.FILES, instance=content)
-        if form.is_valid():
+    
+    logged_in_user = request.user.username
+    #needs to be string to be able to compare with logged_in_user
+    content_user = str(content.author) if pk else None
+    
+    # check to stop people forcing the url and editing other peoples posts
+    
+    if logged_in_user == content_user or request.user.is_superuser:
+        
+        if request.method == "POST":
+            form = ContentSuggestionForm(request.POST, request.FILES, instance=content)
+            if form.is_valid():
             
-            content = form.save(commit=False)
+                content = form.save(commit=False)
             
-            # Set content.author if its a new post, 
-            # if not, dont edit the author
-            if not pk:
-                content.author = request.user
+                # Set content.author if its a new post, 
+                # if not, dont edit the author
+                if not pk:
+                    content.author = request.user
             
-            content.date_posted = timezone.now()
-            content.save()
-            return redirect(single_content, content.pk)
+                content.date_posted = timezone.now()
+                content.save()
+                return redirect(single_content, content.pk)
+        else:
+            form = ContentSuggestionForm(instance=content)
     else:
-        form = ContentSuggestionForm(instance=content)
+        return redirect(issue_tracker_content)
         
     return render(request, 'new_content.html', {'ContentSuggestionForm': form, 'content': content})
 

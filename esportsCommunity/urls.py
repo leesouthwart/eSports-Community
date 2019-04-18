@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^profile/post/(?P<pk>\d+)/$', post_detail, name="post_detail"),
     url(r'^profile/post/(?P<pk>\d+)/edit/$', create_or_edit_post, name="edit_post"),
     url(r'^profile/post/(?P<pk>\d+)/delete/$', delete_post, name="delete_post"),
-    url('^timeline/$', timeline, name="timeline")
+    url('^timeline/$', timeline, name="timeline"),
     
 
     
