@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import env
+from env import *
 from django.conf.urls.static import static
 import dj_database_url
 
