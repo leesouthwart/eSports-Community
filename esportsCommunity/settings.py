@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'issue_tracker',
-    'env',
+    
    
 ]
 
