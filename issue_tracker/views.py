@@ -103,7 +103,8 @@ def create_or_edit_bug(request, pk=None): #pk defaulted to None
                 form = BugForm(instance=bug)
         else:
             return redirect(issue_tracker_bugs)
-        
+    else:
+        form = BugForm(instance=bug)
     return render(request, 'new_bug.html', {'BugForm': form, 'bug': bug})
     
 
