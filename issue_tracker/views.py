@@ -78,33 +78,33 @@ def create_or_edit_bug(request, pk=None): #pk defaulted to None
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     
     logged_in_user = request.user.username
+    print(logged_in_user)
     ## needs to be string to be able to compare to logged_in_user
     bug_user = str(bug.author) if pk else None
     
     # check to stop people forcing the url and editing other peoples posts
-    if bug_user:
-        if logged_in_user == bug_user or request.user.is_superuser:
-        
-            if request.method == "POST":
-                form = BugForm(request.POST, request.FILES, instance=bug)
-                if form.is_valid():
-            
-                    bug = form.save(commit=False)
+    if logged_in_user == bug_user or bug_user == None or request.user.is_superuser:
+        print('test')
+        if request.method == "POST":
+            print('hello')
+            form = BugForm(request.POST, request.FILES, instance=bug)
+            if form.is_valid():
+                print('hello')
+                bug = form.save(commit=False)
            
-                    # Set author to request.user if it is a new post
-                    # else, do not edit bug.author
-                    if not pk:
-                        bug.author = request.user
+                # Set author to request.user if it is a new post
+                # else, do not edit bug.author
+                if not pk:
+                    bug.author = request.user
             
-                    bug.date_posted = timezone.now()
-                    bug.save()
-                    return redirect(single_bug, bug.pk)
-            else:
-                form = BugForm(instance=bug)
+                bug.date_posted = timezone.now()
+                bug.save()
+                return redirect(single_bug, bug.pk)
         else:
-            return redirect(issue_tracker_bugs)
+            form = BugForm(instance=bug)
     else:
-        form = BugForm(instance=bug)
+        return redirect(issue_tracker_bugs)
+    
     return render(request, 'new_bug.html', {'BugForm': form, 'bug': bug})
     
 
@@ -208,8 +208,7 @@ def create_or_edit_content(request, pk=None): #pk defaulted to None
     content_user = str(content.author) if pk else None
     
     # check to stop people forcing the url and editing other peoples posts
-    
-    if logged_in_user == content_user or request.user.is_superuser:
+    if logged_in_user == content_user or content_user == None or request.user.is_superuser:
         
         if request.method == "POST":
             form = ContentSuggestionForm(request.POST, request.FILES, instance=content)

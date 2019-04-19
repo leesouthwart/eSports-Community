@@ -161,7 +161,7 @@ def create_or_edit_post(request, pk=None):
     post_user = str(post.author) if pk else None
     
     # check to stop people forcing the url and editing other peoples posts
-    if logged_in_user == post_user or request.user.is_superuser:
+    if logged_in_user == post_user or post_user == None or request.user.is_superuser:
         if request.method == "POST":
             form = PostForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
