@@ -82,26 +82,27 @@ def create_or_edit_bug(request, pk=None): #pk defaulted to None
     bug_user = str(bug.author) if pk else None
     
     # check to stop people forcing the url and editing other peoples posts
-    if logged_in_user == bug_user or request.user.is_superuser:
+    if bug_user:
+        if logged_in_user == bug_user or request.user.is_superuser:
         
-        if request.method == "POST":
-            form = BugForm(request.POST, request.FILES, instance=bug)
-            if form.is_valid():
+            if request.method == "POST":
+                form = BugForm(request.POST, request.FILES, instance=bug)
+                if form.is_valid():
             
-                bug = form.save(commit=False)
+                    bug = form.save(commit=False)
            
-                # Set author to request.user if it is a new post
-                # else, do not edit bug.author
-                if not pk:
-                    bug.author = request.user
+                    # Set author to request.user if it is a new post
+                    # else, do not edit bug.author
+                    if not pk:
+                        bug.author = request.user
             
-                bug.date_posted = timezone.now()
-                bug.save()
-                return redirect(single_bug, bug.pk)
+                    bug.date_posted = timezone.now()
+                    bug.save()
+                    return redirect(single_bug, bug.pk)
+            else:
+                form = BugForm(instance=bug)
         else:
-            form = BugForm(instance=bug)
-    else:
-        return redirect(issue_tracker_bugs)
+            return redirect(issue_tracker_bugs)
         
     return render(request, 'new_bug.html', {'BugForm': form, 'bug': bug})
     
