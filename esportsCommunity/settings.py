@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from env import *
+import env
 from django.conf.urls.static import static
 import dj_database_url
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'issue_tracker',
+    'env',
    
 ]
 
