@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    ## UNCOMMENT FOR HEROKU PUSH ##
     #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -94,7 +95,6 @@ DATABASES = {
     }
 }
 
-#DATABASES = {'default': dj_database_url.parse("postgres://wqalqvfcahwymu:fe4b25dd98ce225a9c324aeb51a53f190f67df0db529d3f88d840a71af85bb68@ec2-79-125-4-72.eu-west-1.compute.amazonaws.com:5432/d2dl56gu4khjhr")}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -139,6 +139,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
+
+
+## UNCOMMENT FOR HEROKU PUSH ##
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
